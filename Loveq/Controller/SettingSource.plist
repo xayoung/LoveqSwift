@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<string>去商店评分</string>
+		<string>提交BUG以及改进</string>
+		<string>LoveQ官网</string>
+	</array>
+	<array>
+		<string>版本号</string>
+		<string>关于</string>
+	</array>
+</array>
+</plist>

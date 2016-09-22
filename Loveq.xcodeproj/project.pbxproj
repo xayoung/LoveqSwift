@@ -1,0 +1,501 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08170C13C9B51DB247BEC846 /* Pods_Loveq.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25DA78EB3277BE85ACA41C54 /* Pods_Loveq.framework */; };
+		AA05673E1CEFFB3D00D086B3 /* MusicPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA05673D1CEFFB3D00D086B3 /* MusicPlayer.storyboard */; };
+		AA0567401CF0599400D086B3 /* MusicSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA05673F1CF0599400D086B3 /* MusicSlider.swift */; };
+		AA19FF381D09165B003A4BC6 /* ProgrammeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19FF371D09165B003A4BC6 /* ProgrammeCollectionCell.swift */; };
+		AA1C320D1CFAC26D00983AD5 /* LoveqClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C320C1CFAC26D00983AD5 /* LoveqClient.swift */; };
+		AA1C320F1CFAC2E100983AD5 /* LoveqNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C320E1CFAC2E100983AD5 /* LoveqNavigationController.swift */; };
+		AA1C32111CFAC3B900983AD5 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C32101CFAC3B900983AD5 /* LeftViewController.swift */; };
+		AA4EA63F1D16525B0008ACE7 /* LaunchAnimationContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4EA63E1D16525B0008ACE7 /* LaunchAnimationContoller.swift */; };
+		AA5E89E21D1525130073231A /* CFWaterWave.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5E89E11D1525130073231A /* CFWaterWave.m */; };
+		AA5F6BBE1D00634D00708712 /* RightProgramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5F6BBD1D00634D00708712 /* RightProgramCell.swift */; };
+		AA5F6BC01D00684C00708712 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5F6BBF1D00684C00708712 /* UITableView+Extension.swift */; };
+		AA6083B91CC2463200BAA4FE /* NSMutableArray+X.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6083B81CC2463200BAA4FE /* NSMutableArray+X.swift */; };
+		AA6083CD1CC261E100BAA4FE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6083CC1CC261E100BAA4FE /* Models.swift */; };
+		AA6E9F201CDD8C1600C5CB13 /* PrivateSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E9F1F1CDD8C1600C5CB13 /* PrivateSettingViewController.swift */; };
+		AA6E9F221CDD8E5D00C5CB13 /* SettingSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA6E9F211CDD8E5D00C5CB13 /* SettingSource.plist */; };
+		AA6E9F261CDD955B00C5CB13 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E9F251CDD955B00C5CB13 /* SettingCell.swift */; };
+		AA8B14C01D0D953100924D86 /* DownloadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8B14BF1D0D953100924D86 /* DownloadingViewController.swift */; };
+		AA8B14C21D0D986D00924D86 /* DownloadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8B14C11D0D986D00924D86 /* DownloadingCell.swift */; };
+		AA94D8E91D0A4A4E008902F2 /* UIcollectionView+Etension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA94D8E81D0A4A4E008902F2 /* UIcollectionView+Etension.swift */; };
+		AA960CB51D112CB400766E65 /* WeChatActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA960CB41D112CB400766E65 /* WeChatActivity.swift */; };
+		AA9696651D1D0A8700D0DC1C /* ProgrammeDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9696641D1D0A8700D0DC1C /* ProgrammeDetailListViewController.swift */; };
+		AA977A431CC0795800B272CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA977A421CC0795700B272CA /* AppDelegate.swift */; };
+		AA977A481CC0795800B272CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA977A461CC0795800B272CA /* Main.storyboard */; };
+		AA977A4A1CC0795800B272CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA977A491CC0795800B272CA /* Assets.xcassets */; };
+		AA9CB6AB1D17777C0013A693 /* ProgrammeDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9CB6AA1D17777C0013A693 /* ProgrammeDetailViewCell.swift */; };
+		AA9CB6AD1D179ACE0013A693 /* AboutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9CB6AC1D179ACE0013A693 /* AboutHeaderView.swift */; };
+		AA9CB6AF1D17CAE50013A693 /* programList.json in Resources */ = {isa = PBXBuildFile; fileRef = AA9CB6AE1D17CAE50013A693 /* programList.json */; };
+		AAA3CACE1CF5E426006B11CC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA3CACD1CF5E426006B11CC /* Config.swift */; };
+		AAA70BD61CEAAB0C006E5651 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA70BD51CEAAB0C006E5651 /* MusicViewController.swift */; };
+		AAE728711CE8168900B67E1E /* DownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE728701CE8168900B67E1E /* DownloadedViewController.swift */; };
+		AAFE42C31D04628500932773 /* ProgrammeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFE42C21D04628500932773 /* ProgrammeCollectionViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		25DA78EB3277BE85ACA41C54 /* Pods_Loveq.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Loveq.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C2C8FDE129203365A952BBD /* Pods-Loveq.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Loveq.release.xcconfig"; path = "Pods/Target Support Files/Pods-Loveq/Pods-Loveq.release.xcconfig"; sourceTree = "<group>"; };
+		AA05673D1CEFFB3D00D086B3 /* MusicPlayer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MusicPlayer.storyboard; sourceTree = "<group>"; };
+		AA05673F1CF0599400D086B3 /* MusicSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicSlider.swift; sourceTree = "<group>"; };
+		AA19FF371D09165B003A4BC6 /* ProgrammeCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgrammeCollectionCell.swift; sourceTree = "<group>"; };
+		AA1C320C1CFAC26D00983AD5 /* LoveqClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoveqClient.swift; sourceTree = "<group>"; };
+		AA1C320E1CFAC2E100983AD5 /* LoveqNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoveqNavigationController.swift; sourceTree = "<group>"; };
+		AA1C32101CFAC3B900983AD5 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
+		AA4EA63E1D16525B0008ACE7 /* LaunchAnimationContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAnimationContoller.swift; sourceTree = "<group>"; };
+		AA5E89E01D1525130073231A /* CFWaterWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFWaterWave.h; sourceTree = "<group>"; };
+		AA5E89E11D1525130073231A /* CFWaterWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFWaterWave.m; sourceTree = "<group>"; };
+		AA5F6BBD1D00634D00708712 /* RightProgramCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightProgramCell.swift; sourceTree = "<group>"; };
+		AA5F6BBF1D00684C00708712 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		AA6083B81CC2463200BAA4FE /* NSMutableArray+X.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableArray+X.swift"; sourceTree = "<group>"; };
+		AA6083CC1CC261E100BAA4FE /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		AA6E9F1F1CDD8C1600C5CB13 /* PrivateSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateSettingViewController.swift; sourceTree = "<group>"; };
+		AA6E9F211CDD8E5D00C5CB13 /* SettingSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingSource.plist; sourceTree = "<group>"; };
+		AA6E9F251CDD955B00C5CB13 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		AA8B14BF1D0D953100924D86 /* DownloadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingViewController.swift; sourceTree = "<group>"; };
+		AA8B14C11D0D986D00924D86 /* DownloadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingCell.swift; sourceTree = "<group>"; };
+		AA94D8E81D0A4A4E008902F2 /* UIcollectionView+Etension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIcollectionView+Etension.swift"; sourceTree = "<group>"; };
+		AA960CB41D112CB400766E65 /* WeChatActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeChatActivity.swift; sourceTree = "<group>"; };
+		AA9696641D1D0A8700D0DC1C /* ProgrammeDetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgrammeDetailListViewController.swift; sourceTree = "<group>"; };
+		AA977A3F1CC0795700B272CA /* Loveq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Loveq.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA977A421CC0795700B272CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AA977A471CC0795800B272CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AA977A491CC0795800B272CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA977A4E1CC0795800B272CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA9CB6AA1D17777C0013A693 /* ProgrammeDetailViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgrammeDetailViewCell.swift; sourceTree = "<group>"; };
+		AA9CB6AC1D179ACE0013A693 /* AboutHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutHeaderView.swift; sourceTree = "<group>"; };
+		AA9CB6AE1D17CAE50013A693 /* programList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = programList.json; sourceTree = "<group>"; };
+		AAA3CACD1CF5E426006B11CC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		AAA70BD51CEAAB0C006E5651 /* MusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
+		AAB3C8A61D151ED100AA75CE /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		AAE728701CE8168900B67E1E /* DownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedViewController.swift; sourceTree = "<group>"; };
+		AAFE42C21D04628500932773 /* ProgrammeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgrammeCollectionViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA977A3C1CC0795700B272CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08170C13C9B51DB247BEC846 /* Pods_Loveq.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		444BEE3D1B6074ED304B7980 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				25DA78EB3277BE85ACA41C54 /* Pods_Loveq.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9F9D02D302C7F0B44CAE9728 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C2C8FDE129203365A952BBD /* Pods-Loveq.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA5F4BA51CC0B6F500B3C79E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AA6083B81CC2463200BAA4FE /* NSMutableArray+X.swift */,
+				AA5F6BBF1D00684C00708712 /* UITableView+Extension.swift */,
+				AA94D8E81D0A4A4E008902F2 /* UIcollectionView+Etension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AA5F4BDF1CC0D7E000B3C79E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AA6E9F211CDD8E5D00C5CB13 /* SettingSource.plist */,
+				AA4EA63E1D16525B0008ACE7 /* LaunchAnimationContoller.swift */,
+				AA6E9F1F1CDD8C1600C5CB13 /* PrivateSettingViewController.swift */,
+				AA1C320E1CFAC2E100983AD5 /* LoveqNavigationController.swift */,
+				AA1C32101CFAC3B900983AD5 /* LeftViewController.swift */,
+				AAFE42C21D04628500932773 /* ProgrammeCollectionViewController.swift */,
+				AA9696641D1D0A8700D0DC1C /* ProgrammeDetailListViewController.swift */,
+				AA8B14BF1D0D953100924D86 /* DownloadingViewController.swift */,
+				AAE728701CE8168900B67E1E /* DownloadedViewController.swift */,
+				AAA70BD51CEAAB0C006E5651 /* MusicViewController.swift */,
+				AA960CB41D112CB400766E65 /* WeChatActivity.swift */,
+				AA1C320C1CFAC26D00983AD5 /* LoveqClient.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AA5F4BE41CC0D7E000B3C79E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AA8B14C11D0D986D00924D86 /* DownloadingCell.swift */,
+				AA6E9F251CDD955B00C5CB13 /* SettingCell.swift */,
+				AA05673F1CF0599400D086B3 /* MusicSlider.swift */,
+				AA5F6BBD1D00634D00708712 /* RightProgramCell.swift */,
+				AA19FF371D09165B003A4BC6 /* ProgrammeCollectionCell.swift */,
+				AA9CB6AA1D17777C0013A693 /* ProgrammeDetailViewCell.swift */,
+				AA9CB6AC1D179ACE0013A693 /* AboutHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AA6083CB1CC261E100BAA4FE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA6083CC1CC261E100BAA4FE /* Models.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AA977A361CC0795700B272CA = {
+			isa = PBXGroup;
+			children = (
+				AAB3C8A61D151ED100AA75CE /* Header.h */,
+				AA977A411CC0795700B272CA /* Loveq */,
+				AA977A401CC0795700B272CA /* Products */,
+				444BEE3D1B6074ED304B7980 /* Frameworks */,
+				9F9D02D302C7F0B44CAE9728 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		AA977A401CC0795700B272CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA977A3F1CC0795700B272CA /* Loveq.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA977A411CC0795700B272CA /* Loveq */ = {
+			isa = PBXGroup;
+			children = (
+				AA977A461CC0795800B272CA /* Main.storyboard */,
+				AA05673D1CEFFB3D00D086B3 /* MusicPlayer.storyboard */,
+				AA9805161CCE4B4E0022DE8A /* Tools */,
+				AA6083CB1CC261E100BAA4FE /* Model */,
+				AA5F4BDF1CC0D7E000B3C79E /* Controller */,
+				AA5F4BE41CC0D7E000B3C79E /* View */,
+				AA5F4BA51CC0B6F500B3C79E /* Extensions */,
+				AA977A541CC0798700B272CA /* Supporting Files */,
+			);
+			path = Loveq;
+			sourceTree = "<group>";
+		};
+		AA977A541CC0798700B272CA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AA977A421CC0795700B272CA /* AppDelegate.swift */,
+				AA977A491CC0795800B272CA /* Assets.xcassets */,
+				AA9CB6AE1D17CAE50013A693 /* programList.json */,
+				AA977A4E1CC0795800B272CA /* Info.plist */,
+				AAA3CACD1CF5E426006B11CC /* Config.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AA9805161CCE4B4E0022DE8A /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				AA5E89E01D1525130073231A /* CFWaterWave.h */,
+				AA5E89E11D1525130073231A /* CFWaterWave.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA977A3E1CC0795700B272CA /* Loveq */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA977A511CC0795800B272CA /* Build configuration list for PBXNativeTarget "Loveq" */;
+			buildPhases = (
+				973DC42636644A7895D98C51 /* Check Pods Manifest.lock */,
+				AA977A3B1CC0795700B272CA /* Sources */,
+				AA977A3C1CC0795700B272CA /* Frameworks */,
+				AA977A3D1CC0795700B272CA /* Resources */,
+				E9B7D6FA89433592F10731F9 /* Embed Pods Frameworks */,
+				8CC8C66C368C3D2D5E6570FC /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Loveq;
+			productName = Loveq;
+			productReference = AA977A3F1CC0795700B272CA /* Loveq.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA977A371CC0795700B272CA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = xayoung;
+				TargetAttributes = {
+					AA977A3E1CC0795700B272CA = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 6QYU33MRLQ;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = AA977A3A1CC0795700B272CA /* Build configuration list for PBXProject "Loveq" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA977A361CC0795700B272CA;
+			productRefGroup = AA977A401CC0795700B272CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA977A3E1CC0795700B272CA /* Loveq */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA977A3D1CC0795700B272CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA6E9F221CDD8E5D00C5CB13 /* SettingSource.plist in Resources */,
+				AA977A4A1CC0795800B272CA /* Assets.xcassets in Resources */,
+				AA977A481CC0795800B272CA /* Main.storyboard in Resources */,
+				AA9CB6AF1D17CAE50013A693 /* programList.json in Resources */,
+				AA05673E1CEFFB3D00D086B3 /* MusicPlayer.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8CC8C66C368C3D2D5E6570FC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Loveq/Pods-Loveq-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		973DC42636644A7895D98C51 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E9B7D6FA89433592F10731F9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Loveq/Pods-Loveq-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA977A3B1CC0795700B272CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE728711CE8168900B67E1E /* DownloadedViewController.swift in Sources */,
+				AA8B14C21D0D986D00924D86 /* DownloadingCell.swift in Sources */,
+				AA6083CD1CC261E100BAA4FE /* Models.swift in Sources */,
+				AA9CB6AB1D17777C0013A693 /* ProgrammeDetailViewCell.swift in Sources */,
+				AA19FF381D09165B003A4BC6 /* ProgrammeCollectionCell.swift in Sources */,
+				AA94D8E91D0A4A4E008902F2 /* UIcollectionView+Etension.swift in Sources */,
+				AAFE42C31D04628500932773 /* ProgrammeCollectionViewController.swift in Sources */,
+				AA4EA63F1D16525B0008ACE7 /* LaunchAnimationContoller.swift in Sources */,
+				AAA70BD61CEAAB0C006E5651 /* MusicViewController.swift in Sources */,
+				AA5F6BBE1D00634D00708712 /* RightProgramCell.swift in Sources */,
+				AA9696651D1D0A8700D0DC1C /* ProgrammeDetailListViewController.swift in Sources */,
+				AA6E9F201CDD8C1600C5CB13 /* PrivateSettingViewController.swift in Sources */,
+				AA960CB51D112CB400766E65 /* WeChatActivity.swift in Sources */,
+				AA6E9F261CDD955B00C5CB13 /* SettingCell.swift in Sources */,
+				AA6083B91CC2463200BAA4FE /* NSMutableArray+X.swift in Sources */,
+				AA5E89E21D1525130073231A /* CFWaterWave.m in Sources */,
+				AA8B14C01D0D953100924D86 /* DownloadingViewController.swift in Sources */,
+				AA9CB6AD1D179ACE0013A693 /* AboutHeaderView.swift in Sources */,
+				AA1C320F1CFAC2E100983AD5 /* LoveqNavigationController.swift in Sources */,
+				AA1C320D1CFAC26D00983AD5 /* LoveqClient.swift in Sources */,
+				AA0567401CF0599400D086B3 /* MusicSlider.swift in Sources */,
+				AAA3CACE1CF5E426006B11CC /* Config.swift in Sources */,
+				AA977A431CC0795800B272CA /* AppDelegate.swift in Sources */,
+				AA1C32111CFAC3B900983AD5 /* LeftViewController.swift in Sources */,
+				AA5F6BC01D00684C00708712 /* UITableView+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AA977A461CC0795800B272CA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA977A471CC0795800B272CA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AA977A501CC0795800B272CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA977A531CC0795800B272CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C2C8FDE129203365A952BBD /* Pods-Loveq.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = Loveq/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/Alamofire.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/DrawerController.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/FXBlurView.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/MZDownloadManager.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/MonkeyKing.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/NVActivityIndicatorView.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/ObjectMapper.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/Ruler.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/SnapKit.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/Wilddog.framework/Headers\"",
+					"-iquote",
+					"\"$CONFIGURATION_BUILD_DIR/pop.framework/Headers\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xayoung.oneloveq;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
+				VALID_ARCHS = "arm64 armv7 armv7s";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA977A3A1CC0795700B272CA /* Build configuration list for PBXProject "Loveq" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA977A501CC0795800B272CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA977A511CC0795800B272CA /* Build configuration list for PBXNativeTarget "Loveq" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA977A531CC0795800B272CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA977A371CC0795700B272CA /* Project object */;
+}

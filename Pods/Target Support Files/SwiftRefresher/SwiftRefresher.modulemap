@@ -1,0 +1,6 @@
+framework module SwiftRefresher {
+  umbrella header "SwiftRefresher-umbrella.h"
+
+  export *
+  module * { export * }
+}

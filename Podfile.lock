@@ -1,0 +1,54 @@
+PODS:
+  - DrawerController (1.1.1):
+    - DrawerController/Core (= 1.1.1)
+    - DrawerController/DrawerVisualStates (= 1.1.1)
+  - DrawerController/Core (1.1.1)
+  - DrawerController/DrawerVisualStates (1.1.1):
+    - DrawerController/Core
+  - FXBlurView (1.6.4)
+  - MonkeyKing (0.9.2)
+  - MZDownloadManager (3.1)
+  - NVActivityIndicatorView (2.12)
+  - ObjectMapper (1.4.0)
+  - PKHUD (3.2.1)
+  - pop (1.0.9)
+  - PullToBounce (0.0.3)
+  - QQ_XGPush (2.4.9)
+  - Ruler (0.8.0)
+  - SnapKit (0.21.0)
+  - SwiftRefresher (0.9.0)
+  - Wilddog (1.0.0)
+
+DEPENDENCIES:
+  - DrawerController (~> 1.1.0)
+  - FXBlurView (~> 1.6.4)
+  - MonkeyKing (= 0.9.2)
+  - MZDownloadManager
+  - NVActivityIndicatorView (= 2.12)
+  - ObjectMapper (~> 1.2)
+  - PKHUD
+  - pop
+  - PullToBounce
+  - QQ_XGPush
+  - Ruler (= 0.8.0)
+  - SnapKit (= 0.21.0)
+  - SwiftRefresher (~> 0.9.0)
+  - Wilddog (= 1.0.0)
+
+SPEC CHECKSUMS:
+  DrawerController: ff3a2630c74f0daf7840702a1492b8accbbf3d7e
+  FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  MonkeyKing: 2cf420f9202a51714734374c97d96cf496e7ae2b
+  MZDownloadManager: 12071a63ab9883da73ed7977a6da714468769220
+  NVActivityIndicatorView: de8be03826726ad99cdfacf7fe09e88cbfeef911
+  ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
+  PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  PullToBounce: d2c6300b92fa124f7133e0ca0088bbf7a7059194
+  QQ_XGPush: 528cc9e762364adfa8c465cafe351d987c8af060
+  Ruler: 5e38ff92c4ce5a96af66eb8a3bc0f17c7a5c1cd9
+  SnapKit: 2756fe24b706367af224c9c508d2f9166d03354c
+  SwiftRefresher: f09f1baedb295cc59523d979cd300e8adb30f835
+  Wilddog: 08618a6d5e9d774de7c4424119227b9392de2002
+
+COCOAPODS: 0.39.0
