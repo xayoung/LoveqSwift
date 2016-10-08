@@ -12,7 +12,7 @@ import MonkeyKing
 
 class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
-    private var _tableView :UITableView!
+    fileprivate var _tableView :UITableView!
     
     var frostedView = FXBlurView()
     
@@ -20,19 +20,19 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     
     var reviewStatu: Bool?
     
-    private let ID = "cell"
-    private var dataArray: [String] = []
-    private var tableView: UITableView {
+    fileprivate let ID = "cell"
+    fileprivate var dataArray: [String] = []
+    fileprivate var tableView: UITableView {
         get{
             if(_tableView != nil){
                 return _tableView!;
             }
             _tableView = UITableView();
-            _tableView.frame = CGRectMake( 0, 100, 180, LoveqConfig.screenH)
-            _tableView.backgroundColor = UIColor.clearColor()
+            _tableView.frame = CGRect( x: 0, y: 100, width: 180, height: LoveqConfig.screenH)
+            _tableView.backgroundColor = UIColor.clear
             _tableView.estimatedRowHeight=200
-            _tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
-            _tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: ID)
+            _tableView.separatorStyle = UITableViewCellSeparatorStyle.none;
+            _tableView.register(UITableViewCell.self, forCellReuseIdentifier: ID)
             _tableView.delegate = self
             _tableView.dataSource = self
             return _tableView!;
@@ -41,22 +41,22 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         backgroundImageView = UIImageView()
         backgroundImageView!.frame = self.view.frame
-        backgroundImageView!.contentMode = .ScaleToFill
+        backgroundImageView!.contentMode = .scaleToFill
         view.addSubview(backgroundImageView!)
         frostedView.underlyingView = backgroundImageView!
-        frostedView.dynamic = false
-        frostedView.tintColor = UIColor.whiteColor()
+        frostedView.isDynamic = false
+        frostedView.tintColor = UIColor.white
         frostedView.frame = self.view.frame
         view.addSubview(frostedView)
         view.addSubview(tableView)
         
         
     }
-    override func viewWillAppear(animated: Bool) {
-        reviewStatu = NSUserDefaults.standardUserDefaults().objectForKey("reviewStatu") as? Bool
+    override func viewWillAppear(_ animated: Bool) {
+        reviewStatu = UserDefaults.standard.object(forKey: "reviewStatu") as? Bool
         dataArray = ["全部节目","分享","更多"]
         if reviewStatu != nil {
             if !reviewStatu! {
@@ -66,32 +66,32 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         tableView.reloadData()
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: ID)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: ID)
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 16.0)!
-        cell.textLabel?.text =  dataArray[indexPath.row]
-        cell.textLabel?.textColor = UIColor.lightGrayColor()
-        cell.textLabel?.textAlignment = NSTextAlignment.Center
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.accessoryType = UITableViewCellAccessoryType.None
+        cell.textLabel?.text =  dataArray[(indexPath as NSIndexPath).row]
+        cell.textLabel?.textColor = UIColor.lightGray
+        cell.textLabel?.textAlignment = NSTextAlignment.center
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.accessoryType = UITableViewCellAccessoryType.none
         cell.layoutMargins = UIEdgeInsetsMake(0, 0, 0, 0);
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = UIColor.clear
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if reviewStatu != nil {
             if !reviewStatu! {
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                     case 0:
                         let VC = ProgrammeCollectionViewController()
                         LoveqClient.sharedInstance.centerNavigation?.pushViewController(VC, animated: true)
@@ -102,10 +102,10 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
                         break
                     case 2:
                         let shareController = LoveqConfig.shareToNetwork()
-                        self.presentViewController(shareController, animated: true, completion: nil)
+                        self.present(shareController, animated: true, completion: nil)
                         break
                     case 3:
-                        let vc = PrivateSettingViewController.init(style: UITableViewStyle.Grouped)
+                        let vc = PrivateSettingViewController.init(style: UITableViewStyle.grouped)
                         LoveqClient.sharedInstance.centerNavigation?.pushViewController(vc, animated: true)
                         break
                     default:
@@ -113,7 +113,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
                 
                 }
             }else{
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                     
                 case 0:
                     let VC = ProgrammeCollectionViewController()
@@ -121,10 +121,10 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
                     break
                 case 1:
                     let shareController = LoveqConfig.shareToNetwork()
-                    self.presentViewController(shareController, animated: true, completion: nil)
+                    self.present(shareController, animated: true, completion: nil)
                     break
                 case 2:
-                    let vc = PrivateSettingViewController.init(style: UITableViewStyle.Grouped)
+                    let vc = PrivateSettingViewController.init(style: UITableViewStyle.grouped)
                     LoveqClient.sharedInstance.centerNavigation?.pushViewController(vc, animated: true)
                     break
                 default:
@@ -136,7 +136,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
     }
 
     func shareToNetwork(){
-        let profileURL = NSURL(string: "http://itunes.apple.com/app/id1123325463"), nickname = "LoveqSwift一些事一些情"
+        let profileURL = URL(string: "http://itunes.apple.com/app/id1123325463"), nickname = "LoveqSwift一些事一些情"
         let thumbnail: UIImage? = UIImage()
         let info = MonkeyKing.Info(
             //title: String(format:NSLocalizedString("Yep! I'm %@.", comment: ""), nickname),
@@ -166,7 +166,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
             }
         )
         let activityViewController = UIActivityViewController(activityItems:["\(nickname), \(NSLocalizedString("LoveqSwift - 简约、纯粹的聆听体验", comment: "")) \(profileURL!)"], applicationActivities: [weChatSessionActivity, weChatTimelineActivity])
-        activityViewController.excludedActivityTypes = [UIActivityTypeMail, UIActivityTypeAddToReadingList, UIActivityTypeAssignToContact,UIActivityTypeMessage];
+        activityViewController.excludedActivityTypes = [UIActivityType.mail, UIActivityType.addToReadingList, UIActivityType.assignToContact,UIActivityType.message];
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
 

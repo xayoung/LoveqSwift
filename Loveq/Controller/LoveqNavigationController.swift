@@ -13,12 +13,12 @@ class LoveqNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.tintColor = UIColor.redColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.redColor()]
+        navigationBar.tintColor = UIColor.red
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.red]
         
         let nav = UINavigationBar.appearance()
         //取消nav下的边框线
-        nav.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        nav.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         nav.shadowImage = UIImage()
     }
 

@@ -12,7 +12,7 @@ import SnapKit
 
 
 protocol programmerDatailCellDelegate {
-    func downloadMusicAction(model: ProgrammerListModel)
+    func downloadMusicAction(_ model: ProgrammerListModel)
 }
 
 class ProgrammeDetailViewCell: UITableViewCell {
@@ -31,7 +31,7 @@ class ProgrammeDetailViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
@@ -50,31 +50,31 @@ class ProgrammeDetailViewCell: UITableViewCell {
 //        layer.insertSublayer(gradientLayer, atIndex: 0)
         
         title = UILabel()
-        title?.font = UIFont.systemFontOfSize(16.0)
-        title?.textColor = UIColor.blackColor()
+        title?.font = UIFont.systemFont(ofSize: 16.0)
+        title?.textColor = UIColor.black
         self.addSubview(title!)
-        title?.snp_makeConstraints(closure: { (make) in
-            make.centerY.equalTo(contentView.snp_centerY)
-            make.left.equalTo(self.snp_left).offset(50)
+        title?.snp.makeConstraints({ (make) in
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.left.equalTo(self.snp.left).offset(50)
         })
         
         indexNum = UILabel()
-        indexNum?.font = UIFont.systemFontOfSize(12.0)
-        indexNum?.textColor = UIColor.lightGrayColor()
+        indexNum?.font = UIFont.systemFont(ofSize: 12.0)
+        indexNum?.textColor = UIColor.lightGray
         self.addSubview(indexNum!)
-        indexNum?.snp_makeConstraints(closure: { (make) in
-            make.centerY.equalTo(contentView.snp_centerY)
-            make.left.equalTo(self.snp_left).offset(20)
+        indexNum?.snp.makeConstraints({ (make) in
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.left.equalTo(self.snp.left).offset(20)
         })
         
         ActionImg = UIButton()
-        ActionImg?.hidden = false
-        ActionImg?.setImage(UIImage.init(named: "ic_downloaded"), forState: .Normal)
-        ActionImg?.addTarget(self, action: NSSelectorFromString("downloadButtonClick"), forControlEvents: .TouchUpInside)
+        ActionImg?.isHidden = false
+        ActionImg?.setImage(UIImage.init(named: "ic_downloaded"), for: UIControlState())
+        ActionImg?.addTarget(self, action: NSSelectorFromString("downloadButtonClick"), for: .touchUpInside)
         contentView.addSubview(ActionImg!)
-        ActionImg?.snp_makeConstraints(closure: { (make) in
-            make.centerY.equalTo(contentView.snp_centerY)
-            make.right.equalTo(contentView.snp_right).offset(-16)
+        ActionImg?.snp.makeConstraints({ (make) in
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.right.equalTo(contentView.snp.right).offset(-16)
         })
     }
     

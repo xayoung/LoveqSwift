@@ -1,54 +1,83 @@
 PODS:
-  - DrawerController (1.1.1):
-    - DrawerController/Core (= 1.1.1)
-    - DrawerController/DrawerVisualStates (= 1.1.1)
-  - DrawerController/Core (1.1.1)
-  - DrawerController/DrawerVisualStates (1.1.1):
+  - DrawerController (3.0.0):
+    - DrawerController/Core (= 3.0.0)
+    - DrawerController/DrawerVisualStates (= 3.0.0)
+  - DrawerController/Core (3.0.0)
+  - DrawerController/DrawerVisualStates (3.0.0):
     - DrawerController/Core
   - FXBlurView (1.6.4)
-  - MonkeyKing (0.9.2)
-  - MZDownloadManager (3.1)
-  - NVActivityIndicatorView (2.12)
-  - ObjectMapper (1.4.0)
+  - MonkeyKing (1.0.0)
+  - MZDownloadManager (3.2)
+  - NVActivityIndicatorView (3.0)
+  - ObjectMapper (2.1.0)
   - PKHUD (3.2.1)
   - pop (1.0.9)
-  - PullToBounce (0.0.3)
   - QQ_XGPush (2.4.9)
-  - Ruler (0.8.0)
-  - SnapKit (0.21.0)
-  - SwiftRefresher (0.9.0)
-  - Wilddog (1.0.0)
+  - Ruler (1.0.0)
+  - SnapKit (3.0.2)
+  - Wilddog (2.0.1):
+    - Wilddog/Auth (= 2.0.1)
+    - Wilddog/Core (= 2.0.1)
+    - Wilddog/Public (= 2.0.1)
+    - Wilddog/Sync (= 2.0.1)
+  - Wilddog/Auth (2.0.1):
+    - Wilddog/Public
+    - WilddogAuth (~> 2.0.1)
+  - Wilddog/Core (2.0.1):
+    - Wilddog/Public
+  - Wilddog/Public (2.0.1):
+    - WilddogCore (~> 2.0.1)
+  - Wilddog/Sync (2.0.1):
+    - Wilddog/Public
+    - WilddogSync (~> 2.0.1)
+  - WilddogAuth (2.0.1):
+    - WilddogCore (~> 2.0.1)
+  - WilddogCore (2.0.1)
+  - WilddogSync (2.0.1):
+    - WilddogCore (~> 2.0.1)
 
 DEPENDENCIES:
-  - DrawerController (~> 1.1.0)
-  - FXBlurView (~> 1.6.4)
-  - MonkeyKing (= 0.9.2)
-  - MZDownloadManager
-  - NVActivityIndicatorView (= 2.12)
-  - ObjectMapper (~> 1.2)
-  - PKHUD
+  - DrawerController
+  - FXBlurView
+  - MonkeyKing
+  - MZDownloadManager (from `https://raw.githubusercontent.com/mzeeshanid/MZDownloadManager/master/MZDownloadManager.podspec`)
+  - NVActivityIndicatorView
+  - ObjectMapper
+  - PKHUD (from `https://github.com/toyship/PKHUD.git`)
   - pop
-  - PullToBounce
   - QQ_XGPush
-  - Ruler (= 0.8.0)
-  - SnapKit (= 0.21.0)
-  - SwiftRefresher (~> 0.9.0)
-  - Wilddog (= 1.0.0)
+  - Ruler
+  - SnapKit
+  - Wilddog
+
+EXTERNAL SOURCES:
+  MZDownloadManager:
+    :podspec: https://raw.githubusercontent.com/mzeeshanid/MZDownloadManager/master/MZDownloadManager.podspec
+  PKHUD:
+    :git: https://github.com/toyship/PKHUD.git
+
+CHECKOUT OPTIONS:
+  PKHUD:
+    :commit: 28fb970b41d63134e962f9da766b96670c0f55f0
+    :git: https://github.com/toyship/PKHUD.git
 
 SPEC CHECKSUMS:
-  DrawerController: ff3a2630c74f0daf7840702a1492b8accbbf3d7e
+  DrawerController: 5e859c5dbeae3cea20981eb5ff2aa16eb946dff9
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
-  MonkeyKing: 2cf420f9202a51714734374c97d96cf496e7ae2b
-  MZDownloadManager: 12071a63ab9883da73ed7977a6da714468769220
-  NVActivityIndicatorView: de8be03826726ad99cdfacf7fe09e88cbfeef911
-  ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
+  MonkeyKing: 8d1f0550cc535d5a6f97f4ebcec068d95c9ba00f
+  MZDownloadManager: ede859ed56f94e59b927e8b20b4a5bb8134ffcd5
+  NVActivityIndicatorView: 81953b5e65093ba79edf4fe7268e002039ca5268
+  ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
   PKHUD: 001c11518f125a273ddf026bcc64918423744ea2
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
-  PullToBounce: d2c6300b92fa124f7133e0ca0088bbf7a7059194
   QQ_XGPush: 528cc9e762364adfa8c465cafe351d987c8af060
-  Ruler: 5e38ff92c4ce5a96af66eb8a3bc0f17c7a5c1cd9
-  SnapKit: 2756fe24b706367af224c9c508d2f9166d03354c
-  SwiftRefresher: f09f1baedb295cc59523d979cd300e8adb30f835
-  Wilddog: 08618a6d5e9d774de7c4424119227b9392de2002
+  Ruler: fa0067d052372fef191acea419917d4b42ebc3aa
+  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
+  Wilddog: 236bb7b4030130938a6482b22252d5394338be1c
+  WilddogAuth: 7ba9c0f3f2e74a3065d322a30eef1d855344806b
+  WilddogCore: 7081dc490b5625df6dc9b7598e24af4510119a47
+  WilddogSync: e2e1e167742061a7e5722e2f0feb973f08db55ba
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: f1d85c913cef45c717f228de9bae68562080e7e1
+
+COCOAPODS: 1.1.0.rc.2

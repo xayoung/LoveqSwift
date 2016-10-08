@@ -14,9 +14,29 @@ import MZDownloadManager
 import PKHUD
 import FXBlurView
 import pop
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,programmerDatailCellDelegate{
-    private var _tableView :UITableView!
+    fileprivate var _tableView :UITableView!
 
     var year: String?
     
@@ -42,23 +62,23 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
     var multipleChoiceButton: UIButton?
     
-    private var downloadButtonView: UIView?
+    fileprivate var downloadButtonView: UIView?
     
-    private var tableView: UITableView {
+    fileprivate var tableView: UITableView {
         get{
             if(_tableView != nil){
                 return _tableView!;
             }
             _tableView = UITableView();
-            _tableView.frame = CGRectMake( 0, 60, LoveqConfig.screenW, LoveqConfig.screenH)
-            _tableView.backgroundColor = UIColor.clearColor()
+            _tableView.frame = CGRect( x: 0, y: 60, width: LoveqConfig.screenW, height: LoveqConfig.screenH)
+            _tableView.backgroundColor = UIColor.clear
             _tableView.estimatedRowHeight = 200
-            _tableView.separatorStyle = UITableViewCellSeparatorStyle.None;
+            _tableView.separatorStyle = UITableViewCellSeparatorStyle.none;
             _tableView.separatorInset = UIEdgeInsetsMake(0, 50, 0, 0)
-            _tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: ID)
+            _tableView.register(UITableViewCell.self, forCellReuseIdentifier: ID)
             _tableView.delegate = self
             _tableView.dataSource = self
-            _tableView.hidden = true
+            _tableView.isHidden = true
             return _tableView!;
             
         }
@@ -69,7 +89,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         regClass(self.tableView, cell: ProgrammeDetailViewCell.self)
         view.addSubview(tableView)
         setUpDownloadingViewController()
@@ -85,12 +105,12 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
     func setupDownloadButtonView(){
         let height = CGFloat(40.0)
-        downloadButtonView = UIView.init(frame: CGRectMake(0, LoveqConfig.screenH + height, LoveqConfig.screenW, height))
+        downloadButtonView = UIView.init(frame: CGRect(x: 0, y: LoveqConfig.screenH + height, width: LoveqConfig.screenW, height: height))
         downloadButtonView?.backgroundColor = UIColor.init(red: 252/255.0, green: 0/255.0, blue: 61/255.0, alpha: 1.0)
-        let button = UIButton.init(type: .Custom)
-        button.titleLabel?.font = UIFont.systemFontOfSize(16.0)
-        button.setTitle("下 载", forState: .Normal)
-        button.addTarget(self, action: NSSelectorFromString("multipleDownloadAction"), forControlEvents: .TouchUpInside)
+        let button = UIButton.init(type: .custom)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16.0)
+        button.setTitle("下 载", for: UIControlState())
+        button.addTarget(self, action: NSSelectorFromString("multipleDownloadAction"), for: .touchUpInside)
         downloadButtonView?.addSubview(button)
         button.snp_makeConstraints { (make) in
             make.center.equalTo((downloadButtonView?.snp_center)!)
@@ -101,29 +121,29 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     }
     
     func addRightButton() {
-        let button = UIButton.init(type: .Custom)
-        button.frame = CGRectMake(0, 0, 60, 40)
-        button.setTitle("多选", forState: .Normal)
-        button.setTitle("完成", forState: .Selected)
-        button.setTitleColor(UIColor.redColor(), forState: .Normal)
-        button.setTitleColor(UIColor.redColor(), forState: .Selected)
-        button.hidden = false
-        button.addTarget(self, action: NSSelectorFromString("multipleChoice:"), forControlEvents: .TouchUpInside)
+        let button = UIButton.init(type: .custom)
+        button.frame = CGRect(x: 0, y: 0, width: 60, height: 40)
+        button.setTitle("多选", for: UIControlState())
+        button.setTitle("完成", for: .selected)
+        button.setTitleColor(UIColor.red, for: UIControlState())
+        button.setTitleColor(UIColor.red, for: .selected)
+        button.isHidden = false
+        button.addTarget(self, action: NSSelectorFromString("multipleChoice:"), for: .touchUpInside)
         multipleChoiceButton = button
         let BarButton = UIBarButtonItem.init(customView: button)
         navigationItem.rightBarButtonItem = BarButton
     }
     
-    func multipleChoice(button: UIButton){
-        button.selected = button.selected ? false : true
+    func multipleChoice(_ button: UIButton){
+        button.isSelected = button.isSelected ? false : true
         tableView.allowsMultipleSelectionDuringEditing = true
-        tableView.setEditing(button.selected, animated: true)
+        tableView.setEditing(button.isSelected, animated: true)
         tableView.reloadData()
-        animationForView(downloadButtonView!, statu: button.selected)
+        animationForView(downloadButtonView!, statu: button.isSelected)
     }
     
     func multipleDownloadAction(){
-        multipleChoiceButton?.selected = false
+        multipleChoiceButton?.isSelected = false
         tableView.setEditing(false, animated: true)
         tableView.reloadData()
         animationForView(downloadButtonView!, statu: false)
@@ -139,8 +159,8 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        reviewStatu = NSUserDefaults.standardUserDefaults().objectForKey("reviewStatu") as? Bool
+    override func viewWillAppear(_ animated: Bool) {
+        reviewStatu = UserDefaults.standard.object(forKey: "reviewStatu") as? Bool
         
         if reviewStatu != nil {
             if !reviewStatu! {
@@ -148,8 +168,8 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
             }
         }
     }
-    override func viewDidAppear(animated: Bool) {
-        self.tableView.hidden = false
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.isHidden = false
         let yearNum = Int(self.year!)
         if yearNum > 2015 {
             
@@ -162,18 +182,18 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     func loadFileAppendArray() {
         downloadedFilesArray.removeAll()
         do {
-            let contentOfDir: [String] = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(MZUtility.baseFilePath as String)
+            let contentOfDir: [String] = try FileManager.defaultManager().contentsOfDirectoryAtPath(MZUtility.baseFilePath as String)
             var contentOfDir2: [String] = [String]()
             for str in contentOfDir{
-                if (str as NSString).containsString(".mp3") {
-                    contentOfDir2.append((str as NSString).substringToIndex(10))
+                if (str as NSString).contains(".mp3") {
+                    contentOfDir2.append((str as NSString).substring(to: 10))
                 }
             }
-            downloadedFilesArray.appendContentsOf(contentOfDir2)
+            downloadedFilesArray.append(contentsOf: contentOfDir2)
             
-            let index = downloadedFilesArray.indexOf(".DS_Store")
+            let index = downloadedFilesArray.index(of: ".DS_Store")
             if let index = index {
-                downloadedFilesArray.removeAtIndex(index)
+                downloadedFilesArray.remove(at: index)
             }
             
         } catch let error as NSError {
@@ -187,8 +207,8 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
     func loadNewData() {
         
-        let activityIndicatorView = NVActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50), type: NVActivityIndicatorType.BallBeat, color: UIColor.redColor())
-        activityIndicatorView.center = CGPointMake(LoveqConfig.screenW * 0.5, LoveqConfig.screenH * 0.5 - 64)
+        let activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.BallBeat, color: UIColor.redColor())
+        activityIndicatorView.center = CGPoint(x: LoveqConfig.screenW * 0.5, y: LoveqConfig.screenH * 0.5 - 64)
         self.view.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
         
@@ -223,15 +243,15 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
     func loadOldData() {
 
-        let dict = LoveqClient.sharedInstance.oldProgramListJSON.objectForKey(self.year!)
+        let dict = LoveqClient.sharedInstance.oldProgramListJSON.object(forKey: self.year!)
         self.dataSource = dict as! [String : NSArray]
         
-        var array = dict!.allKeys
+        var array = (dict! as AnyObject).allKeys
         
-        array.sortInPlace{($0 as! String) > ($1 as! String)}
+        array?.sort{($0 as! String) > ($1 as! String)}
         
-        for str in array{
-            let mapArray = dict!.objectForKey(str) as! NSArray
+        for str in array!{
+            let mapArray = (dict! as AnyObject).object(forKey: str) as! NSArray
             var outArray: [ProgrammerListModel] = [ProgrammerListModel]()
             for dic in 0 ..< mapArray.count {
                 let model = Mapper<ProgrammerListModel>().map(mapArray[dic])
@@ -246,13 +266,13 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     func animateTable() {
         
         tableView.reloadData()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         let cells = tableView.visibleCells
         let tableHeight: CGFloat = tableView.bounds.size.height
-        for (index, cell) in cells.enumerate() {
-            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
-            UIView.animateWithDuration(1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                cell.transform = CGAffineTransformMakeTranslation(0, 0);
+        for (index, cell) in cells.enumerated() {
+            cell.transform = CGAffineTransform(translationX: 0, y: tableHeight)
+            UIView.animate(withDuration: 1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                cell.transform = CGAffineTransform(translationX: 0, y: 0);
                 }, completion: nil)
         }
         
@@ -260,54 +280,54 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
     // MARK: - Table view data source
     
-     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         return dataArray.count
     }
     
-     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         count = count + dataArray[section].count
         return dataArray[section].count
     }
     
-     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(tableView, cell: ProgrammeDetailViewCell.self, indexPath: indexPath)
-        let model = dataArray[indexPath.section][indexPath.row]
-        cell.contentView.backgroundColor = UIColor.clearColor()
+        let model = dataArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        cell.contentView.backgroundColor = UIColor.clear
         cell.model = model
         let attrString = NSMutableAttributedString.init(string: model.title!)
         attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, model.title!.characters.count))
         cell.title?.attributedText = attrString
         var index: NSInteger = 0
         
-        for a in 0...indexPath.section {
-            index += a == indexPath.section ?  indexPath.row : dataArray[indexPath.section].count
+        for a in 0...(indexPath as NSIndexPath).section {
+            index += a == (indexPath as NSIndexPath).section ?  (indexPath as NSIndexPath).row : dataArray[(indexPath as NSIndexPath).section].count
         }
         cell.indexNum?.text = String(index + 1)
-        cell.indexNum?.hidden = tableView.editing ? true : false
+        cell.indexNum?.isHidden = tableView.isEditing ? true : false
         cell.delegate = self
-        cell.ActionImg?.hidden = reviewStatu! ? true : false
-        cell.ActionImg?.userInteractionEnabled = true
-        cell.ActionImg?.setImage(UIImage.init(named: "btn_download_nor"), forState: .Normal)
-        cell.textLabel?.backgroundColor = UIColor.clearColor()
-        cell.textLabel?.textColor = UIColor.blackColor()
-        if downloadedFilesArray.contains((model.title! as NSString).substringToIndex(10)) {
-            cell.ActionImg?.setImage(UIImage.init(named: "ic_downloaded"), forState: .Normal)
-            cell.ActionImg?.userInteractionEnabled = false
+        cell.ActionImg?.isHidden = reviewStatu! ? true : false
+        cell.ActionImg?.isUserInteractionEnabled = true
+        cell.ActionImg?.setImage(UIImage.init(named: "btn_download_nor"), for: UIControlState())
+        cell.textLabel?.backgroundColor = UIColor.clear
+        cell.textLabel?.textColor = UIColor.black
+        if downloadedFilesArray.contains((model.title! as NSString).substring(to: 10)) {
+            cell.ActionImg?.setImage(UIImage.init(named: "ic_downloaded"), for: UIControlState())
+            cell.ActionImg?.isUserInteractionEnabled = false
             cell.textLabel?.textColor = UIColor.init(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
 
         }
 
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.clearColor()
+        bgColorView.backgroundColor = UIColor.clear
         cell.selectedBackgroundView = bgColorView
         
         return cell
     }
     
-    func downloadMusicAction(model: ProgrammerListModel) {
+    func downloadMusicAction(_ model: ProgrammerListModel) {
         if reviewStatu != nil {
             if !reviewStatu! {
                 downloadAlertView(model)
@@ -315,31 +335,31 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         // 没有添加任何的功能代码
     }
     
-     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if tableView.editing {
-            let model = dataArray[indexPath.section][indexPath.row]
-            if !mulitpleURLArray.containsObject(model) {
-                mulitpleURLArray.addObject(model)
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.isEditing {
+            let model = dataArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+            if !mulitpleURLArray.contains(model) {
+                mulitpleURLArray.add(model)
             }
-            tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         }else{
-            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+            tableView.deselectRow(at: indexPath, animated: false)
         }
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let model = dataArray[indexPath.section][indexPath.row]
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let model = dataArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
-        if mulitpleURLArray.containsObject(model) {
-            mulitpleURLArray.removeObject(model)
+        if mulitpleURLArray.contains(model) {
+            mulitpleURLArray.remove(model)
         }
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
@@ -360,42 +380,42 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     }
     */
     
-    func downloadAlertView(model: ProgrammerListModel){
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        let saveAction = UIAlertAction(title: "下载", style: .Destructive, handler: {
+    func downloadAlertView(_ model: ProgrammerListModel){
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let saveAction = UIAlertAction(title: "下载", style: .destructive, handler: {
             (alert: UIAlertAction!) -> Void in
             self.addDownloadTask(model)
             HUD.flash(.Label("已添加至下载队列"))
         })
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: {
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         
         optionMenu.addAction(saveAction)
         optionMenu.addAction(cancelAction)
-        self.presentViewController(optionMenu, animated: true, completion: nil)
+        self.present(optionMenu, animated: true, completion: nil)
     }
     
-    func addDownloadTask(model: ProgrammerListModel) {
-        let fileURL  : NSString = model.url!
+    func addDownloadTask(_ model: ProgrammerListModel) {
+        let fileURL  : NSString = model.url! as NSString
         var fileName : NSString = model.title! + ".mp3"
         fileName = MZUtility.getUniqueFileNameWithPath((MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(fileName as String))
         
-        self.DownloadingVC!.downloadManager.addDownloadTask(fileName as String, fileURL: fileURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        self.DownloadingVC!.downloadManager.addDownloadTask(fileName as String, fileURL: fileURL.stringByAddingPercentEscapesUsingEncoding(String.Encoding.utf8)!)
     }
     
-    func animationForView(view: UIView, statu: Bool) {
-        dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue()) {
+    func animationForView(_ view: UIView, statu: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
             let musicPlayViewAnimation = POPSpringAnimation.init(propertyNamed: kPOPLayerPositionY)
-            musicPlayViewAnimation.toValue = statu ? LoveqConfig.screenH - 20 :  LoveqConfig.screenH + 40
-            musicPlayViewAnimation.springSpeed = 10
-            view.layer.pop_addAnimation(musicPlayViewAnimation, forKey: "positionAnimation")
+            musicPlayViewAnimation?.toValue = statu ? LoveqConfig.screenH - 20 :  LoveqConfig.screenH + 40
+            musicPlayViewAnimation?.springSpeed = 10
+            view.layer.pop_add(musicPlayViewAnimation, forKey: "positionAnimation")
             
             let musicPlayViewlayerPositionAnimation = POPSpringAnimation.init(propertyNamed: kPOPLayerScaleXY)
-            musicPlayViewlayerPositionAnimation.toValue = statu ? NSValue.init(CGSize: CGSizeMake(1.0, 1.0)) : NSValue.init(CGSize: CGSizeMake(1.0  , 1.0))
-            musicPlayViewlayerPositionAnimation.springSpeed = 10
-            musicPlayViewlayerPositionAnimation.springBounciness = 20.0
-            view.layer.pop_addAnimation(musicPlayViewlayerPositionAnimation, forKey: "layerPositionAnimation")
+            musicPlayViewlayerPositionAnimation?.toValue = statu ? NSValue.init(cgSize: CGSize(width: 1.0, height: 1.0)) : NSValue.init(cgSize: CGSize(width: 1.0  , height: 1.0))
+            musicPlayViewlayerPositionAnimation?.springSpeed = 10
+            musicPlayViewlayerPositionAnimation?.springBounciness = 20.0
+            view.layer.pop_add(musicPlayViewlayerPositionAnimation, forKey: "layerPositionAnimation")
         }
         
     }

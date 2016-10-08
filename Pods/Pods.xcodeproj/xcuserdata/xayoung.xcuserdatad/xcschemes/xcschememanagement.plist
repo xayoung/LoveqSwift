@@ -49,27 +49,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>PullToBounce.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Ruler.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>SnapKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftRefresher.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Wilddog.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -87,12 +72,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0C7379859E13F88E5321D8CE48F5C560</key>
+		<key>141D689D6771F0FC7A78953D6D9600C0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0E1B00719308C0593C34217D99B34D9B</key>
+		<key>19451D03779D63BE3E54BEA1A724AA38</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,17 +92,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69B0F7032B2A21C3544E09A5DF5E5921</key>
+		<key>53CDB578197EE9C3C8E45FF76D4D43CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>86997CD2B73CBA2DD3744BB24A95C1DF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C31A540DD6DB56404A28511F9FCEB0D2</key>
+		<key>C8A84485A82D0105AD90775E6388A52B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,17 +117,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA8039190E73D7722B57FCBC91095D99</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DE2DF86AB09738BA64936E3D3C2719A1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E73A1F358019A3ACF3DC663FF69FAE5C</key>
+		<key>D819B7E4D4AD44616907A2B0541B211A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

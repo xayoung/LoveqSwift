@@ -15,7 +15,7 @@ class UserModels: Mappable {
     var js: String?
     var user1: user?
     
-    required init?(_ map: Map){
+    required init?(map: Map){
         
     }
     
@@ -83,7 +83,7 @@ class user: Mappable {
     var user_setting: String?
     var display_name: String?
 
-    required init?(_ map: Map){
+    required init?(map: Map){
         
     }
     
@@ -148,7 +148,7 @@ class ProgrammerListModel: Mappable {
     var title: String?
     var type: String?
     var url: String?
-    required init?(_ map: Map){
+    required init?(map: Map){
 
     }
 

@@ -16,7 +16,7 @@ install_framework()
     local source="$1"
   fi
 
-  local destination="${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
+  local destination="${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
 
   if [ -L "${source}" ]; then
       echo "Symlinked..."
@@ -59,8 +59,8 @@ code_sign_if_enabled() {
   if [ -n "${EXPANDED_CODE_SIGN_IDENTITY}" -a "${CODE_SIGNING_REQUIRED}" != "NO" -a "${CODE_SIGNING_ALLOWED}" != "NO" ]; then
     # Use the current code_sign_identitiy
     echo "Code Signing $1 with Identity ${EXPANDED_CODE_SIGN_IDENTITY_NAME}"
-    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements \"$1\""
-    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements "$1"
+    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements \"$1\""
+    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements "$1"
   fi
 }
 
@@ -84,17 +84,14 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-Loveq/DrawerController.framework"
-  install_framework "Pods-Loveq/FXBlurView.framework"
-  install_framework "Pods-Loveq/MZDownloadManager.framework"
-  install_framework "Pods-Loveq/MonkeyKing.framework"
-  install_framework "Pods-Loveq/NVActivityIndicatorView.framework"
-  install_framework "Pods-Loveq/ObjectMapper.framework"
-  install_framework "Pods-Loveq/PKHUD.framework"
-  install_framework "Pods-Loveq/PullToBounce.framework"
-  install_framework "Pods-Loveq/Ruler.framework"
-  install_framework "Pods-Loveq/SnapKit.framework"
-  install_framework "Pods-Loveq/SwiftRefresher.framework"
-  install_framework "Pods-Loveq/Wilddog.framework"
-  install_framework "Pods-Loveq/pop.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/DrawerController/DrawerController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FXBlurView/FXBlurView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MZDownloadManager/MZDownloadManager.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MonkeyKing/MonkeyKing.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/NVActivityIndicatorView/NVActivityIndicatorView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper/ObjectMapper.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PKHUD/PKHUD.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Ruler/Ruler.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi

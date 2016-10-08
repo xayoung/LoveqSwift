@@ -29,13 +29,13 @@ class RightProgramCell: UITableViewCell {
     }
 
     func setup()->Void{
-        self.selectionStyle = .None
-        self.backgroundColor = UIColor.clearColor()
+        self.selectionStyle = .none
+        self.backgroundColor = UIColor.clear
         
         self.NO = UILabel()
-        self.NO?.textColor = UIColor.lightGrayColor()
+        self.NO?.textColor = UIColor.lightGray
         self.contentView.addSubview(NO!)
-        self.NO!.snp_makeConstraints{ (make) -> Void in
+        self.NO!.snp.makeConstraints{ (make) -> Void in
             make.centerY.equalTo(self.contentView)
             make.left.equalTo(self.contentView).offset(20)
             make.height.equalTo(25)
@@ -44,32 +44,32 @@ class RightProgramCell: UITableViewCell {
         
         self.title = UILabel()
         self.contentView.addSubview(title!)
-        self.title!.snp_makeConstraints{ (make) -> Void in
-            make.left.equalTo(self.NO!.snp_right).offset(8)
+        self.title!.snp.makeConstraints{ (make) -> Void in
+            make.left.equalTo(self.NO!.snp.right).offset(8)
             make.top.equalTo(10)
         }
         
         self.timeImg = UIImageView()
         self.timeImg?.image = UIImage.init(named: "ic_clock")
         self.contentView.addSubview(timeImg!)
-        self.timeImg!.snp_makeConstraints{ (make) -> Void in
-            make.left.equalTo(self.title!.snp_left)
+        self.timeImg!.snp.makeConstraints{ (make) -> Void in
+            make.left.equalTo(self.title!.snp.left)
             make.bottom.equalTo(-10)
         }
         
         
         self.time = UILabel()
-        self.time?.textColor = UIColor.lightGrayColor()
+        self.time?.textColor = UIColor.lightGray
         self.time?.font = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!
         self.contentView.addSubview(time!)
-        self.time!.snp_makeConstraints{ (make) -> Void in
-            make.left.equalTo(self.timeImg!.snp_right).offset(4)
+        self.time!.snp.makeConstraints{ (make) -> Void in
+            make.left.equalTo(self.timeImg!.snp.right).offset(4)
             make.centerY.equalTo(self.timeImg!)
         }
         
-        self.playingAnimationView = NVActivityIndicatorView.init(frame: CGRectMake(0, 0, 20, 30), type: NVActivityIndicatorType.LineScalePulseOut, color: UIColor.redColor())
+        self.playingAnimationView = NVActivityIndicatorView.init(frame: CGRect(x: 0, y: 0, width: 20, height: 30), type: NVActivityIndicatorType.lineScalePulseOut, color: UIColor.red)
         self.contentView.addSubview(playingAnimationView!)
-        self.playingAnimationView!.snp_makeConstraints { (make) in
+        self.playingAnimationView!.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.contentView)
             make.right.equalTo(self.contentView).offset(-20)
             make.width.equalTo(20)

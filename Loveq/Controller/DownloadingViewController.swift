@@ -14,7 +14,7 @@ let alertControllerViewTag: Int = 500
 
 class DownloadingViewController: UITableViewController {
 
-    var selectedIndexPath : NSIndexPath!
+    var selectedIndexPath : IndexPath!
 
     let cellIdentifier : String = "DownloadingCell"
     
@@ -33,19 +33,19 @@ class DownloadingViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         regClass(self.tableView, cell: DownloadingCell.self)
-        self.tableView.tableFooterView = UIView.init(frame: CGRectZero)
+        self.tableView.tableFooterView = UIView.init(frame: CGRect.zero)
         self.title = "正在下载"
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if downloadManager.downloadingArray.count == 0{
             HUD.flash(.Label("暂无下载任务"), delay: 1.0)
         }
     }
 
-    func refreshCellForIndex(downloadModel: MZDownloadModel, index: Int) {
-        let indexPath = NSIndexPath.init(forRow: index, inSection: 0)
-        let cell = self.tableView.cellForRowAtIndexPath(indexPath)
+    func refreshCellForIndex(_ downloadModel: MZDownloadModel, index: Int) {
+        let indexPath = IndexPath.init(row: index, section: 0)
+        let cell = self.tableView.cellForRow(at: indexPath)
         if let cell = cell {
             let downloadCell = cell as! DownloadingCell
             downloadCell.updateCellForRowAtIndexPath(indexPath, downloadModel: downloadModel)
@@ -55,11 +55,11 @@ class DownloadingViewController: UITableViewController {
 // MARK: UITableViewDatasource Handler Extension
 
 extension DownloadingViewController {
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return downloadManager.downloadingArray.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         let cell = getCell(self.tableView, cell: DownloadingCell.self, indexPath: indexPath)
         
@@ -69,7 +69,7 @@ extension DownloadingViewController {
         return cell
         
     }
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 }
@@ -77,13 +77,13 @@ extension DownloadingViewController {
 
 extension DownloadingViewController {
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
 
         let downloadModel = downloadManager.downloadingArray[indexPath.row]
         self.showAppropriateActionController(downloadModel.status)
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }
@@ -92,7 +92,7 @@ extension DownloadingViewController {
 
 extension DownloadingViewController {
 
-    func showAppropriateActionController(requestStatus: String) {
+    func showAppropriateActionController(_ requestStatus: String) {
 
         if requestStatus == TaskStatus.Downloading.description() {
             self.showAlertControllerForPause()
@@ -113,14 +113,14 @@ extension DownloadingViewController {
             self.downloadManager.cancelTaskAtIndex(self.selectedIndexPath.row)
         }
 
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
 
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.view.tag = alertControllerViewTag
         alertController.addAction(pauseAction)
         alertController.addAction(removeAction)
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
 
     func showAlertControllerForRetry() {
@@ -133,14 +133,14 @@ extension DownloadingViewController {
             self.downloadManager.cancelTaskAtIndex(self.selectedIndexPath.row)
         }
 
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
 
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.view.tag = alertControllerViewTag
         alertController.addAction(retryAction)
         alertController.addAction(removeAction)
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
 
     func showAlertControllerForStart() {
@@ -153,14 +153,14 @@ extension DownloadingViewController {
             self.downloadManager.cancelTaskAtIndex(self.selectedIndexPath.row)
         }
 
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
 
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.view.tag = alertControllerViewTag
         alertController.addAction(startAction)
         alertController.addAction(removeAction)
         alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
 
     func safelyDismissAlertController() {
@@ -171,57 +171,57 @@ extension DownloadingViewController {
             guard controller is UIAlertController && controller.view.tag == alertControllerViewTag else {
                 return
             }
-            controller.dismissViewControllerAnimated(true, completion: nil)
+            controller.dismiss(animated: true, completion: nil)
         }
     }
 }
 
 extension DownloadingViewController: MZDownloadManagerDelegate {
 
-    func downloadRequestStarted(downloadModel: MZDownloadModel, index: Int) {
+    func downloadRequestStarted(_ downloadModel: MZDownloadModel, index: Int) {
 //        let indexPath = NSIndexPath.init(forRow: index, inSection: 0)
 //        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         tableView.reloadData()
     }
 
-    func downloadRequestDidPopulatedInterruptedTasks(downloadModels: [MZDownloadModel]) {
+    func downloadRequestDidPopulatedInterruptedTasks(_ downloadModels: [MZDownloadModel]) {
         tableView.reloadData()
     }
 
-    func downloadRequestDidUpdateProgress(downloadModel: MZDownloadModel, index: Int) {
+    func downloadRequestDidUpdateProgress(_ downloadModel: MZDownloadModel, index: Int) {
         self.refreshCellForIndex(downloadModel, index: index)
     }
 
-    func downloadRequestDidPaused(downloadModel: MZDownloadModel, index: Int) {
+    func downloadRequestDidPaused(_ downloadModel: MZDownloadModel, index: Int) {
         self.refreshCellForIndex(downloadModel, index: index)
     }
 
-    func downloadRequestDidResumed(downloadModel: MZDownloadModel, index: Int) {
+    func downloadRequestDidResumed(_ downloadModel: MZDownloadModel, index: Int) {
         self.refreshCellForIndex(downloadModel, index: index)
     }
 
-    func downloadRequestCanceled(downloadModel: MZDownloadModel, index: Int) {
+    func downloadRequestCanceled(_ downloadModel: MZDownloadModel, index: Int) {
 
         self.safelyDismissAlertController()
 
-        let indexPath = NSIndexPath.init(forRow: index, inSection: 0)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+        let indexPath = IndexPath.init(row: index, section: 0)
+        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
     }
 
-    func downloadRequestFinished(downloadModel: MZDownloadModel, index: Int) {
+    func downloadRequestFinished(_ downloadModel: MZDownloadModel, index: Int) {
 
         self.safelyDismissAlertController()
 
         downloadManager.presentNotificationForDownload("Ok", notifBody: "节目下载完成！")
 
-        let indexPath = NSIndexPath.init(forRow: index, inSection: 0)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+        let indexPath = IndexPath.init(row: index, section: 0)
+        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
 
         let docDirectoryPath : NSString = (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(downloadModel.fileName)
-        NSNotificationCenter.defaultCenter().postNotificationName(MZUtility.DownloadCompletedNotif as String, object: docDirectoryPath)
+        NotificationCenter.defaultCenter().postNotificationName(MZUtility.DownloadCompletedNotif as String, object: docDirectoryPath)
     }
 
-    func downloadRequestDidFailedWithError(error: NSError, downloadModel: MZDownloadModel, index: Int) {
+    func downloadRequestDidFailedWithError(_ error: NSError, downloadModel: MZDownloadModel, index: Int) {
         self.safelyDismissAlertController()
         self.refreshCellForIndex(downloadModel, index: index)
     }

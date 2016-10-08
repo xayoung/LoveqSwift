@@ -12,32 +12,32 @@ class WeChatActivity: AnyActivity {
 
     enum Type {
 
-        case Session
-        case Timeline
+        case session
+        case timeline
 
         var type: String {
             switch self {
-            case .Session:
+            case .session:
                 return "cn.xayoung.WeChat.Session"
-            case .Timeline:
+            case .timeline:
                 return "cn.xayoung.WeChat.Timeline"
             }
         }
 
         var title: String {
             switch self {
-            case .Session:
+            case .session:
                 return NSLocalizedString("微信好友", comment: "")
-            case .Timeline:
+            case .timeline:
                 return NSLocalizedString("微信朋友圈", comment: "")
             }
         }
 
         var image: UIImage {
             switch self {
-            case .Session:
+            case .session:
                 return UIImage(named: "wechat_session")!
-            case .Timeline:
+            case .timeline:
                 return UIImage(named: "wechat_timeline")!
             }
         }

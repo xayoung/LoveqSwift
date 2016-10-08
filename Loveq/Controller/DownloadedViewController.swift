@@ -13,33 +13,33 @@ import SnapKit
 class DownloadedViewController: UITableViewController {
     
     var downloadedFilesArray: [String] = []
-    var selectedIndexPath: NSIndexPath?
-    var fileManger: NSFileManager = NSFileManager.defaultManager()
+    var selectedIndexPath: IndexPath?
+    var fileManger: FileManager = FileManager.default
     var ID = "DownloadedFileCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableFooterView = UIView.init(frame: CGRectZero)
+        tableView.tableFooterView = UIView.init(frame: CGRect.zero)
         regClass(self.tableView, cell: RightProgramCell.self)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: NSSelectorFromString("downloadFinishedNotification:"), name: MZUtility.DownloadCompletedNotif as String, object: nil)
+        NotificationCenter.default.addObserver(self, selector: NSSelectorFromString("downloadFinishedNotification:"), name: NSNotification.Name(rawValue: MZUtility.DownloadCompletedNotif as String), object: nil)
         loadFileAppendArray()
     }
     
     func loadFileAppendArray() {
         downloadedFilesArray.removeAll()
         do {
-            let contentOfDir: [String] = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(MZUtility.baseFilePath as String)
+            let contentOfDir: [String] = try FileManager.default.contentsOfDirectory(atPath: MZUtility.baseFilePath as String)
             var contentOfDir2: [String] = [String]()
             for str in contentOfDir{
-                if (str as NSString).containsString(".mp3") {
+                if (str as NSString).contains(".mp3") {
                     contentOfDir2.append(str)
                 }
             }
-            downloadedFilesArray.appendContentsOf(contentOfDir2)
+            downloadedFilesArray.append(contentsOf: contentOfDir2)
             
-            let index = downloadedFilesArray.indexOf(".DS_Store")
+            let index = downloadedFilesArray.index(of: ".DS_Store")
             if let index = index {
-                downloadedFilesArray.removeAtIndex(index)
+                downloadedFilesArray.remove(at: index)
             }
             
         } catch let error as NSError {
@@ -49,18 +49,18 @@ class DownloadedViewController: UITableViewController {
     
     // MARK: - NSNotification Methods -
     
-    func downloadFinishedNotification(notification : NSNotification) {
+    func downloadFinishedNotification(_ notification : Notification) {
         loadFileAppendArray()
         tableView.reloadData()
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+        tableView.reloadSections(IndexSet(integer: 0), with: UITableViewRowAnimation.fade)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         tableView.setEditing(false, animated: true)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         LoveqClient.sharedInstance.centerViewController?.setupMusiclist()
     }
     
@@ -68,12 +68,12 @@ class DownloadedViewController: UITableViewController {
         tableView.setEditing(false, animated: true)
     }
     
-    func editFile(button :UIButton)  {
-        if  button.selected {
-            button.selected = false
+    func editFile(_ button :UIButton)  {
+        if  button.isSelected {
+            button.isSelected = false
             tableView.reloadData()
         }else{
-            button.selected = true
+            button.isSelected = true
             tableView.setEditing(true, animated: true)
         }
     }
@@ -84,55 +84,55 @@ class DownloadedViewController: UITableViewController {
 //MARK: UITableViewDataSource Handler Extension
 
 extension DownloadedViewController {
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRectMake(0, 0, LoveqConfig.screenW, 60))
-        headerView.backgroundColor = UIColor.whiteColor()
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: LoveqConfig.screenW, height: 60))
+        headerView.backgroundColor = UIColor.white
         let mainTitle = UILabel()
-        mainTitle.font = UIFont.systemFontOfSize(16.0)
+        mainTitle.font = UIFont.systemFont(ofSize: 16.0)
         let title = "我的节目(" + String(downloadedFilesArray.count)
         mainTitle.text = title + ")"
         headerView.addSubview(mainTitle)
-        mainTitle.snp_makeConstraints { (make) in
+        mainTitle.snp.makeConstraints { (make) in
             make.top.equalTo(headerView).offset(35)
             make.centerX.equalTo(headerView)
         }
-        let editButton = UIButton.init(type: UIButtonType.Custom)
-        editButton.setTitle("管理", forState: UIControlState.Normal)
-        editButton.setTitle("返回", forState: UIControlState.Selected)
-        editButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        editButton.titleLabel?.font = UIFont.systemFontOfSize(14.0)
-        editButton.addTarget(self, action: #selector(DownloadedViewController.editFile(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let editButton = UIButton.init(type: UIButtonType.custom)
+        editButton.setTitle("管理", for: UIControlState())
+        editButton.setTitle("返回", for: UIControlState.selected)
+        editButton.setTitleColor(UIColor.black, for: UIControlState())
+        editButton.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
+        editButton.addTarget(self, action: #selector(DownloadedViewController.editFile(_:)), for: UIControlEvents.touchUpInside)
         headerView.addSubview(editButton)
-        editButton.snp_makeConstraints { (make) in
+        editButton.snp.makeConstraints { (make) in
             make.centerY.equalTo(mainTitle)
-            make.left.equalTo(mainTitle.snp_right).offset(20)
+            make.left.equalTo(mainTitle.snp.right).offset(20)
         }
         return headerView
     }
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return downloadedFilesArray.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let musicName = downloadedFilesArray[indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let musicName = downloadedFilesArray[(indexPath as NSIndexPath).row]
         let cell = getCell(tableView, cell: RightProgramCell.self, indexPath: indexPath)
-        let fileURL  : NSURL = NSURL(fileURLWithPath: (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(musicName as String))
-        cell.NO?.text = String(indexPath.row + 1)
-        cell.title?.text = (musicName as NSString).substringToIndex(10)
+        let fileURL  : URL = URL(fileURLWithPath: (MZUtility.baseFilePath as NSString).appendingPathComponent(musicName as String))
+        cell.NO?.text = String((indexPath as NSIndexPath).row + 1)
+        cell.title?.text = (musicName as NSString).substring(to: 10)
         let musicPlayer = LoveqClient.sharedInstance.centerViewController?.musicPlayer
         
-        print((musicName as NSString).substringToIndex(10))
-        if LoveqClient.sharedInstance.centerViewController?.programTitle.text == ((musicName as NSString).substringToIndex(10) + "期") {
-            cell.title?.textColor = UIColor.redColor()
-            cell.time?.textColor = UIColor.redColor()
+        print((musicName as NSString).substring(to: 10))
+        if LoveqClient.sharedInstance.centerViewController?.programTitle.text == ((musicName as NSString).substring(to: 10) + "期") {
+            cell.title?.textColor = UIColor.red
+            cell.time?.textColor = UIColor.red
             if LoveqClient.sharedInstance.centerViewController?.fileURL != nil {
-                if musicPlayer!.playing{
+                if musicPlayer!.isPlaying{
                     cell.playingAnimationView?.startAnimating()
                 }else{
                     cell.playingAnimationView?.stopAnimating()
@@ -140,8 +140,8 @@ extension DownloadedViewController {
             }
             
         }else{
-            cell.title?.textColor = UIColor.blackColor()
-            cell.time?.textColor = UIColor.lightGrayColor()
+            cell.title?.textColor = UIColor.black
+            cell.time?.textColor = UIColor.lightGray
             cell.playingAnimationView?.stopAnimating()
         }
         
@@ -153,31 +153,31 @@ extension DownloadedViewController {
 //MARK: UITableViewDelegate Handler Extension
 
 extension DownloadedViewController {
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         selectedIndexPath = indexPath
-        NSNotificationCenter.defaultCenter().postNotificationName("playMusic", object: indexPath)
-        LoveqClient.sharedInstance.drawerController?.closeDrawerAnimated(true, completion: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "playMusic"), object: indexPath)
+        LoveqClient.sharedInstance.drawerController?.closeDrawer(animated: true, completion: nil)
         tableView.reloadData()
         
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        let fileName : NSString = downloadedFilesArray[indexPath.row] as NSString
-        let fileURL  : NSURL = NSURL(fileURLWithPath: (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(fileName as String))
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let fileName : NSString = downloadedFilesArray[(indexPath as NSIndexPath).row] as NSString
+        let fileURL  : URL = URL(fileURLWithPath: (MZUtility.baseFilePath as NSString).appendingPathComponent(fileName as String))
         
         do {
-            try fileManger.removeItemAtURL(fileURL)
-            downloadedFilesArray.removeAtIndex(indexPath.row)
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            try fileManger.removeItem(at: fileURL)
+            downloadedFilesArray.remove(at: (indexPath as NSIndexPath).row)
+            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
             
         } catch let error as NSError {
             debugPrint("Error while deleting file: \(error)")
         }
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.Delete
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete
     }
 }

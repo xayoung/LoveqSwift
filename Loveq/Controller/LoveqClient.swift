@@ -27,16 +27,16 @@ class LoveqClient: NSObject {
 
     var oldProgramListJSON : NSDictionary{
         get{
-            let data = NSData.init(contentsOfFile: NSBundle.mainBundle().pathForResource("programList.json", ofType: nil)!)
-            let array = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+            let data = try? Data.init(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "programList.json", ofType: nil)!))
+            let array = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
             return array as! NSDictionary
         }
     }
 
 
-    private class func getTopNavigationController(currentNavigationController:UINavigationController) -> UINavigationController {
+    fileprivate class func getTopNavigationController(_ currentNavigationController:UINavigationController) -> UINavigationController {
         if let topNav = currentNavigationController.visibleViewController?.navigationController{
-            if topNav != currentNavigationController && topNav.isKindOfClass(UINavigationController.self){
+            if topNav != currentNavigationController && topNav.isKind(of: UINavigationController.self){
                 return getTopNavigationController(topNav)
             }
         }

@@ -220,12 +220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA977A511CC0795800B272CA /* Build configuration list for PBXNativeTarget "Loveq" */;
 			buildPhases = (
-				973DC42636644A7895D98C51 /* Check Pods Manifest.lock */,
+				973DC42636644A7895D98C51 /* [CP] Check Pods Manifest.lock */,
 				AA977A3B1CC0795700B272CA /* Sources */,
 				AA977A3C1CC0795700B272CA /* Frameworks */,
 				AA977A3D1CC0795700B272CA /* Resources */,
-				E9B7D6FA89433592F10731F9 /* Embed Pods Frameworks */,
-				8CC8C66C368C3D2D5E6570FC /* Copy Pods Resources */,
+				E9B7D6FA89433592F10731F9 /* [CP] Embed Pods Frameworks */,
+				8CC8C66C368C3D2D5E6570FC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -249,6 +249,7 @@
 					AA977A3E1CC0795700B272CA = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 6QYU33MRLQ;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -294,14 +295,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8CC8C66C368C3D2D5E6570FC /* Copy Pods Resources */ = {
+		8CC8C66C368C3D2D5E6570FC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,29 +310,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Loveq/Pods-Loveq-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		973DC42636644A7895D98C51 /* Check Pods Manifest.lock */ = {
+		973DC42636644A7895D98C51 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		E9B7D6FA89433592F10731F9 /* Embed Pods Frameworks */ = {
+		E9B7D6FA89433592F10731F9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +473,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
+				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

@@ -25,32 +25,32 @@ class ProgrammeCollectionCell: UICollectionViewCell {
     }
     
     func setup() -> Void {
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
         self.image = UIImageView()
         self.contentView.addSubview(image!)
-        self.image?.snp_makeConstraints{ (make) in
+        self.image?.snp.makeConstraints{ (make) in
             make.centerX.equalTo(self.contentView)
 //            make.width.equalTo(80)
 //            make.height.equalTo(80)
         }
         
         self.year = UILabel()
-        self.year?.font = UIFont.systemFontOfSize(14.0)
+        self.year?.font = UIFont.systemFont(ofSize: 14.0)
         self.contentView.addSubview(year!)
-        self.year?.snp_makeConstraints{ (make) in
+        self.year?.snp.makeConstraints{ (make) in
             make.centerX.equalTo(image!)
-            make.top.equalTo((image?.snp_bottom)!)
+            make.top.equalTo((image?.snp.bottom)!)
             
         }
         
         self.programCount = UILabel()
-        self.programCount?.font = UIFont.systemFontOfSize(14.0)
-        self.programCount?.textColor = UIColor.lightGrayColor()
+        self.programCount?.font = UIFont.systemFont(ofSize: 14.0)
+        self.programCount?.textColor = UIColor.lightGray
         self.contentView.addSubview(programCount!)
-        self.programCount?.snp_makeConstraints{ (make) in
+        self.programCount?.snp.makeConstraints{ (make) in
             make.centerX.equalTo(image!)
-            make.top.equalTo((year?.snp_bottom)!)
+            make.top.equalTo((year?.snp.bottom)!)
             
         }
         

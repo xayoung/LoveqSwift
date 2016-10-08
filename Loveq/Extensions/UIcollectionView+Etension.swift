@@ -19,10 +19,10 @@ extension NSObject {
     }
 }
 
-func regCollectionViewClass(collectionView:UICollectionView, cell:AnyClass) -> Void {
-    collectionView.registerClass( cell, forCellWithReuseIdentifier: cell.cellIdentifier());
+func regCollectionViewClass(_ collectionView:UICollectionView, cell:AnyClass) -> Void {
+    collectionView.register( cell, forCellWithReuseIdentifier: cell.cellIdentifier());
 }
 
-func getCollectionViewCell<T: UICollectionViewCell>(collectionView:UICollectionView ,cell: T.Type ,indexPath:NSIndexPath) -> T {
-    return collectionView.dequeueReusableCellWithReuseIdentifier("\(cell)", forIndexPath: indexPath) as! T ;
+func getCollectionViewCell<T: UICollectionViewCell>(_ collectionView:UICollectionView ,cell: T.Type ,indexPath:IndexPath) -> T {
+    return collectionView.dequeueReusableCell(withReuseIdentifier: "\(cell)", for: indexPath) as! T ;
 }

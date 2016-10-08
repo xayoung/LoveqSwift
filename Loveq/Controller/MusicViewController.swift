@@ -18,23 +18,23 @@ import Wilddog
 
 class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDelegate {
     
-    private var livePlayer: AVPlayer?
+    fileprivate var livePlayer: AVPlayer?
     
     var reviewStatu: Bool?
     
     var delegateMV: MusicViewControllerDelegate?
     
-    var fileURL: NSURL!
+    var fileURL: URL!
     
     var musicPlayer:AVAudioPlayer = AVAudioPlayer()
     
-    var musicTimer :NSTimer!
+    var musicTimer :Timer!
     
     var playIndex: Int?
     
     var playerState: Int?
     
-    var musiclistFilesArray: [NSURL] = [NSURL]()
+    var musiclistFilesArray: [URL] = [URL]()
     
     var musicTitlelistFilesArray: [String] = [String]()
     
@@ -85,7 +85,7 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         super.viewDidLoad()
         
         //波浪工具，创建图形，坐标，大小
-        waterWaveWhite = CFWaterWave.init(frame: CGRectMake(waterViewWhite.frame.origin.x, waterViewWhite.frame.origin.y, LoveqConfig.screenW, waterViewWhite.frame.size.height))
+        waterWaveWhite = CFWaterWave.init(frame: CGRect(x: waterViewWhite.frame.origin.x, y: waterViewWhite.frame.origin.y, width: LoveqConfig.screenW, height: waterViewWhite.frame.size.height))
         //水波浪的速度
         waterWaveWhite?.waveSpeed = 0.5
         //水波浪的浪的高度
@@ -93,28 +93,28 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         waterWaveWhite?.delegate = self
         
         //？？？
-        waterWave = CFWaterWave.init(frame: CGRectMake(waterView.frame.origin.x, waterView.frame.origin.y, LoveqConfig.screenW, waterView.frame.size.height))
+        waterWave = CFWaterWave.init(frame: CGRect(x: waterView.frame.origin.x, y: waterView.frame.origin.y, width: LoveqConfig.screenW, height: waterView.frame.size.height))
         waterWave?.waterDepth = 0.8
         waterWave?.delegate = self
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: NSSelectorFromString("playMusicWithSomething:"), name: "playMusic", object: nil)
+        NotificationCenter.default.addObserver(self, selector: NSSelectorFromString("playMusicWithSomething:"), name: NSNotification.Name(rawValue: "playMusic"), object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: NSSelectorFromString("downloadFinishedNotificationReload:"), name: MZUtility.DownloadCompletedNotif as String, object: nil)
-        
-        
+        NotificationCenter.default.addObserver(self, selector: NSSelectorFromString("downloadFinishedNotificationReload:"), name: NSNotification.Name(rawValue: MZUtility.DownloadCompletedNotif as String), object: nil)
         
         
-        let leftButton = UIBarButtonItem.init(image: UIImage.init(named: "btn_leftmenu_nor"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MusicViewController.leftClick))
-        leftButton.tintColor = UIColor.redColor()
+        
+        
+        let leftButton = UIBarButtonItem.init(image: UIImage.init(named: "btn_leftmenu_nor"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MusicViewController.leftClick))
+        leftButton.tintColor = UIColor.red
         navigationItem.leftBarButtonItem = leftButton
         
         
         
         
         
-        let rightButton = UIBarButtonItem.init(image: UIImage.init(named: "btn_my_nor"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MusicViewController.rightClick))
-        rightButton.tintColor = UIColor.redColor()
+        let rightButton = UIBarButtonItem.init(image: UIImage.init(named: "btn_my_nor"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MusicViewController.rightClick))
+        rightButton.tintColor = UIColor.red
         navigationItem.rightBarButtonItem = rightButton
         
         
@@ -156,108 +156,108 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     }
 
     func setupLivePlayView() -> UIView {
-        let backgroundView = UIView.init(frame: CGRectMake(0, musicViewAndLiveViewY, LoveqConfig.screenW, 200))
+        let backgroundView = UIView.init(frame: CGRect(x: 0, y: musicViewAndLiveViewY, width: LoveqConfig.screenW, height: 200))
         let label = UILabel()
         label.font = UIFont(name: "Bodoni 72 Oldstyle", size: 82.0)!
-        label.textColor = UIColor.whiteColor()
+        label.textColor = UIColor.white
         label.text = "97.4"
         backgroundView.addSubview(label)
-        label.snp_makeConstraints { (make) in
-            make.centerX.equalTo(backgroundView.snp_centerX)
-            make.centerY.equalTo(backgroundView.snp_centerY).multipliedBy(0.3)
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalTo(backgroundView.snp.centerX)
+            make.centerY.equalTo(backgroundView.snp.centerY).multipliedBy(0.3)
         }
         
         let radiolabel = UILabel()
-        radiolabel.font = UIFont.systemFontOfSize(12.0)
-        radiolabel.textColor = UIColor.whiteColor()
+        radiolabel.font = UIFont.systemFont(ofSize: 12.0)
+        radiolabel.textColor = UIColor.white
         radiolabel.text = "珠江经济台"
         backgroundView.addSubview(radiolabel)
-        radiolabel.snp_makeConstraints { (make) in
-            make.centerX.equalTo(backgroundView.snp_centerX)
-            make.top.equalTo(label.snp_bottom).offset(8)
+        radiolabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(backgroundView.snp.centerX)
+            make.top.equalTo(label.snp.bottom).offset(8)
         }
-        let button = UIButton.init(type: UIButtonType.Custom)
-        button.setImage(UIImage.init(named: "btn_stop_nor"), forState: UIControlState.Normal)
-        button.setImage(UIImage.init(named: "btn_playing_nor-0"), forState: UIControlState.Selected)
-        button.addTarget(self, action: #selector(MusicViewController.livePlayAtion(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let button = UIButton.init(type: UIButtonType.custom)
+        button.setImage(UIImage.init(named: "btn_stop_nor"), for: UIControlState())
+        button.setImage(UIImage.init(named: "btn_playing_nor-0"), for: UIControlState.selected)
+        button.addTarget(self, action: #selector(MusicViewController.livePlayAtion(_:)), for: UIControlEvents.touchUpInside)
         liveButton = button
         backgroundView.addSubview(button)
-        button.snp_makeConstraints { (make) in
-            make.centerX.equalTo(backgroundView.snp_centerX)
-            make.top.equalTo(radiolabel.snp_bottom).offset(8)
-//            make.bottom.equalTo(backgroundView.snp_bottom)
+        button.snp.makeConstraints { (make) in
+            make.centerX.equalTo(backgroundView.snp.centerX)
+            make.top.equalTo(radiolabel.snp.bottom).offset(8)
+//            make.bottom.equalTo(backgroundView.snp.bottom)
         }
         return backgroundView
     }
     
     func setupMusicPlayView() -> UIView {
-        let backgroundView = UIView.init(frame: CGRectMake(0, 800, LoveqConfig.screenW, 200))
+        let backgroundView = UIView.init(frame: CGRect(x: 0, y: 800, width: LoveqConfig.screenW, height: 200))
         let label1 = UILabel()
-        label1.font = UIFont.systemFontOfSize(12.0)
-        label1.textColor = UIColor.whiteColor()
+        label1.font = UIFont.systemFont(ofSize: 12.0)
+        label1.textColor = UIColor.white
         label1.text = "00:00:00"
         beginTimeLabel = label1
         backgroundView.addSubview(label1)
-        label1.snp_makeConstraints { (make) in
-            make.left.equalTo(backgroundView.snp_left).offset(8)
-            make.top.equalTo(backgroundView.snp_top).offset(60)
+        label1.snp.makeConstraints { (make) in
+            make.left.equalTo(backgroundView.snp.left).offset(8)
+            make.top.equalTo(backgroundView.snp.top).offset(60)
         }
         let label2 = UILabel()
-        label2.font = UIFont.systemFontOfSize(12.0)
-        label2.textColor = UIColor.whiteColor()
+        label2.font = UIFont.systemFont(ofSize: 12.0)
+        label2.textColor = UIColor.white
         label2.text = "00:00:00"
         endTimeLabel = label2
         backgroundView.addSubview(label2)
-        label2.snp_makeConstraints { (make) in
-            make.right.equalTo(backgroundView.snp_right).offset(-8)
-            make.centerY.equalTo(label1.snp_centerY)
+        label2.snp.makeConstraints { (make) in
+            make.right.equalTo(backgroundView.snp.right).offset(-8)
+            make.centerY.equalTo(label1.snp.centerY)
         }
         
-        musicSlider = MusicSlider.init(frame: CGRectZero)
+        musicSlider = MusicSlider.init(frame: CGRect.zero)
         musicSlider.maximumTrackTintColor = UIColor.init(white: 1.0, alpha: 0.3)
-        musicSlider.addTarget(self, action: #selector(MusicViewController.didChangeMusicSlider(_:)), forControlEvents: UIControlEvents.AllEvents)
+        musicSlider.addTarget(self, action: #selector(MusicViewController.didChangeMusicSlider(_:)), for: UIControlEvents.allEvents)
         backgroundView.addSubview(musicSlider)
-        musicSlider.snp_makeConstraints { (make) in
-            make.centerY.equalTo(label1.snp_centerY)
-            make.left.equalTo(label1.snp_right).offset(16)
-            make.right.equalTo(label2.snp_left).offset(-16)
+        musicSlider.snp.makeConstraints { (make) in
+            make.centerY.equalTo(label1.snp.centerY)
+            make.left.equalTo(label1.snp.right).offset(16)
+            make.right.equalTo(label2.snp.left).offset(-16)
         }
         
-        let button = UIButton.init(type: UIButtonType.Custom)
-        button.setImage(UIImage.init(named: "btn_stop_nor"), forState: UIControlState.Normal)
-        button.setImage(UIImage.init(named: "btn_playing_nor-0"), forState: UIControlState.Selected)
-        button.addTarget(self, action: #selector(MusicViewController.playAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let button = UIButton.init(type: UIButtonType.custom)
+        button.setImage(UIImage.init(named: "btn_stop_nor"), for: UIControlState())
+        button.setImage(UIImage.init(named: "btn_playing_nor-0"), for: UIControlState.selected)
+        button.addTarget(self, action: #selector(MusicViewController.playAction(_:)), for: UIControlEvents.touchUpInside)
         playButton = button
         backgroundView.addSubview(button)
-        button.snp_makeConstraints { (make) in
-            make.centerX.equalTo(backgroundView.snp_centerX)
-            make.top.equalTo(label1.snp_bottom).offset(20)
+        button.snp.makeConstraints { (make) in
+            make.centerX.equalTo(backgroundView.snp.centerX)
+            make.top.equalTo(label1.snp.bottom).offset(20)
         }
         
-        let PreviousButton = UIButton.init(type: UIButtonType.Custom)
-        PreviousButton.setImage(UIImage.init(named: "btn_lastsong_nor"), forState: UIControlState.Normal)
-        PreviousButton.addTarget(self, action: #selector(MusicViewController.playPreviousAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let PreviousButton = UIButton.init(type: UIButtonType.custom)
+        PreviousButton.setImage(UIImage.init(named: "btn_lastsong_nor"), for: UIControlState())
+        PreviousButton.addTarget(self, action: #selector(MusicViewController.playPreviousAction(_:)), for: UIControlEvents.touchUpInside)
         backgroundView.addSubview(PreviousButton)
-        PreviousButton.snp_makeConstraints { (make) in
-            make.centerY.equalTo(button.snp_centerY)
-            make.right.equalTo(button.snp_left).offset(-30)
+        PreviousButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(button.snp.centerY)
+            make.right.equalTo(button.snp.left).offset(-30)
         }
-        let nextButton = UIButton.init(type: UIButtonType.Custom)
-        nextButton.setImage(UIImage.init(named: "btn_nextsong_nor"), forState: UIControlState.Normal)
-        nextButton.addTarget(self, action: #selector(MusicViewController.playNextAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let nextButton = UIButton.init(type: UIButtonType.custom)
+        nextButton.setImage(UIImage.init(named: "btn_nextsong_nor"), for: UIControlState())
+        nextButton.addTarget(self, action: #selector(MusicViewController.playNextAction(_:)), for: UIControlEvents.touchUpInside)
         backgroundView.addSubview(nextButton)
-        nextButton.snp_makeConstraints { (make) in
-            make.centerY.equalTo(button.snp_centerY)
-            make.left.equalTo(button.snp_right).offset(30)
+        nextButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(button.snp.centerY)
+            make.left.equalTo(button.snp.right).offset(30)
         }
         return backgroundView
     }
 
 
-    func waterWave(waterWave: CFWaterWave!, wavePath path: UIBezierPath!) {
+    func waterWave(_ waterWave: CFWaterWave!, wave path: UIBezierPath!) {
         
         let maskLayer = CAShapeLayer.init()
-        maskLayer.path = path.CGPath
+        maskLayer.path = path.cgPath
         if waterWave == self.waterWave {
             waterView.layer.mask = maskLayer
         }else{
@@ -265,7 +265,7 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         setupMusiclist()
         if musiclistFilesArray.count == 0 {
             playerState = 0
@@ -276,72 +276,72 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     
     
     func leftClick() {
-        LoveqClient.sharedInstance.drawerController?.toggleLeftDrawerSideAnimated(true, completion: nil)
+        LoveqClient.sharedInstance.drawerController?.toggleLeftDrawerSide(animated: true, completion: nil)
     }
     
     func rightClick() {
-        LoveqClient.sharedInstance.drawerController?.toggleRightDrawerSideAnimated(true, completion: nil)
+        LoveqClient.sharedInstance.drawerController?.toggleRightDrawerSide(animated: true, completion: nil)
     }
     
     func setupMusiclist() {
         musicTitlelistFilesArray.removeAll()
         musiclistFilesArray.removeAll()
-        let contentOfDir: [String] = try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(MZUtility.baseFilePath as String)
+        let contentOfDir: [String] = try! FileManager.default.contentsOfDirectory(atPath: MZUtility.baseFilePath as String)
         var contentOfDir2: [String] = [String]()
-        var contentOfDir3: [NSURL] = [NSURL]()
+        var contentOfDir3: [URL] = [URL]()
         for str in contentOfDir{
-            if (str as NSString).containsString(".mp3") {
+            if (str as NSString).contains(".mp3") {
                 
-                contentOfDir2.append((str as NSString).substringToIndex(10))
-                let fileURL  : NSURL = NSURL(fileURLWithPath: (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(str as String))
+                contentOfDir2.append((str as NSString).substring(to: 10))
+                let fileURL  : URL = URL(fileURLWithPath: (MZUtility.baseFilePath as NSString).appendingPathComponent(str as String))
                 contentOfDir3.append(fileURL)
             }
         }
-        musicTitlelistFilesArray.appendContentsOf(contentOfDir2)
-        musiclistFilesArray.appendContentsOf(contentOfDir3)
+        musicTitlelistFilesArray.append(contentsOf: contentOfDir2)
+        musiclistFilesArray.append(contentsOf: contentOfDir3)
         
     }
     
-    func updateProgramTitleWithIndex(index: Int) {
+    func updateProgramTitleWithIndex(_ index: Int) {
         programTitle.text = musicTitlelistFilesArray[index] + "期"
     }
     
     // MARK: - NSNotification Methods -
-    func downloadFinishedNotificationReload(notification : NSNotification) {
+    func downloadFinishedNotificationReload(_ notification : Notification) {
         
         musicTitlelistFilesArray.removeAll()
         musiclistFilesArray.removeAll()
-        let contentOfDir: [String] = try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(MZUtility.baseFilePath as String)
+        let contentOfDir: [String] = try! FileManager.default.contentsOfDirectory(atPath: MZUtility.baseFilePath as String)
         var contentOfDir2: [String] = [String]()
-        var contentOfDir3: [NSURL] = [NSURL]()
+        var contentOfDir3: [URL] = [URL]()
         for str in contentOfDir{
-            if (str as NSString).containsString(".mp3") {
+            if (str as NSString).contains(".mp3") {
                 
-                contentOfDir2.append((str as NSString).substringToIndex(10))
-                let fileURL  : NSURL = NSURL(fileURLWithPath: (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(str as String))
+                contentOfDir2.append((str as NSString).substring(to: 10))
+                let fileURL  : URL = URL(fileURLWithPath: (MZUtility.baseFilePath as NSString).appendingPathComponent(str as String))
                 contentOfDir3.append(fileURL)
             }
         }
-        musicTitlelistFilesArray.appendContentsOf(contentOfDir2)
-        musiclistFilesArray.appendContentsOf(contentOfDir3)
+        musicTitlelistFilesArray.append(contentsOf: contentOfDir2)
+        musiclistFilesArray.append(contentsOf: contentOfDir3)
     }
 
-    func playMusicWithSomething(notification : NSNotification) {
+    func playMusicWithSomething(_ notification : Notification) {
         
         //暂停播放live
         if (livePlayer != nil) {
             livePlayer!.pause()
             livePlayer = nil
         }
-        liveButton.selected = false
+        liveButton.isSelected = false
         
-        let index = notification.object as! NSIndexPath
-        playIndex = index.row
+        let index = notification.object as! IndexPath
+        playIndex = (index as NSIndexPath).row
         playerState = 1
         setupMusiclist()
-        fileURL = musiclistFilesArray[index.row]
+        fileURL = musiclistFilesArray[(index as NSIndexPath).row]
         let programTitleWithURL = fileURL.lastPathComponent
-        programTitle.text = (programTitleWithURL! as NSString).substringToIndex(10) + "期"
+        programTitle.text = (programTitleWithURL as NSString).substring(to: 10) + "期"
         prepareAudio()
         playAudio()
     }
@@ -359,13 +359,13 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         } catch _ {
         }
         
-        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        UIApplication.shared.beginReceivingRemoteControlEvents()
         if fileURL != nil || musiclistFilesArray.count > 0 {
             
             fileURL = musiclistFilesArray[playIndex!]
             updateProgramTitleWithIndex(playIndex!)
             
-            musicPlayer = try! AVAudioPlayer(contentsOfURL: fileURL)
+            musicPlayer = try! AVAudioPlayer(contentsOf: fileURL)
         }
         musicPlayer.delegate = self
         musicSlider.minimumValue = 0.0
@@ -373,7 +373,7 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     }
     
     func updateSliderValue(){
-        if !musicPlayer.playing{
+        if !musicPlayer.isPlaying{
             return
         }
         let time = musicPlayer.currentTime / musicPlayer.duration
@@ -390,23 +390,23 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         endTimeLabel.text = Tools.calculateTime(musicPlayer.duration)
     }
 
-    @IBAction func playAction(sender: AnyObject) {
+    @IBAction func playAction(_ sender: AnyObject) {
         if playerState == 1 && fileURL != nil {
-            if musicPlayer.playing{
+            if musicPlayer.isPlaying{
                 pauseAudio()
             }else{
                 if (livePlayer != nil) {
                     livePlayer!.pause()
                     livePlayer = nil
                 }
-                liveButton.selected = false
+                liveButton.isSelected = false
                 playAudio()
             }
 
         }else{
             if let statu = reviewStatu {
                 if !statu {
-                    HUD.flash(.LabeledError(title: "", subtitle: "前往全部节目下载节目"), delay: 1.5)
+                    HUD.flash(.labeledError(title: "", subtitle: "前往全部节目下载节目"), delay: 1.5)
                 }
             }
             
@@ -418,27 +418,27 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
 
     func playAudio(){
 
-        let memoryTime  = NSUserDefaults.standardUserDefaults().doubleForKey(self.programTitle.text!)
+        let memoryTime  = UserDefaults.standard.double(forKey: self.programTitle.text!)
         
         if  memoryTime > 0.0 {
             musicPlayer.currentTime = memoryTime
         }
         musicPlayer.play()
-        playButton.selected = true
+        playButton.isSelected = true
         startTimer()
     }
     
     func pauseAudio() {
         musicPlayer.pause()
-        playButton.selected = false
+        playButton.isSelected = false
         
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setDouble((musicPlayer.currentTime), forKey: (programTitle.text)!)
+        let userDefaults = UserDefaults.standard
+        userDefaults.set((musicPlayer.currentTime), forKey: (programTitle.text)!)
     }
     
     func playPrevious() {
         if playIndex == 0 {
-            HUD.flash(.LabeledError(title: "", subtitle: "已经是第一首了"), delay: 1.5)
+            HUD.flash(.labeledError(title: "", subtitle: "已经是第一首了"), delay: 1.5)
         }else{
             playIndex = playIndex! - 1
             prepareAudio()
@@ -448,8 +448,8 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     func playNext() {
         
         if playIndex == musiclistFilesArray.count - 1 {
-            if UIApplication.sharedApplication().applicationState != UIApplicationState.Background{
-                HUD.flash(.LabeledError(title: "", subtitle: "已经是最后一首了"), delay: 1.5)
+            if UIApplication.shared.applicationState != UIApplicationState.background{
+                HUD.flash(.labeledError(title: "", subtitle: "已经是最后一首了"), delay: 1.5)
                 musicPlayer.stop()
             }
         }else{
@@ -462,7 +462,7 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     func startTimer(){
         
         if musicTimer == nil {
-             musicTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(MusicViewController.updateSliderValue), userInfo: nil, repeats: true)
+             musicTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(MusicViewController.updateSliderValue), userInfo: nil, repeats: true)
             musicTimer.fire()
         }
     }
@@ -471,102 +471,102 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     //线控
     func remoteControl() {
         if playerState == 1 && fileURL != nil {
-            if musicPlayer.playing{
+            if musicPlayer.isPlaying{
                 pauseAudio()
             }else{
                 playAudio()
             }
         }
     }
-    @IBAction func didChangeMusicSlider(sender: AnyObject) {
+    @IBAction func didChangeMusicSlider(_ sender: AnyObject) {
         if playerState == 1 && fileURL != nil {
             musicPlayer.currentTime = musicPlayer.duration * Double(musicSlider.value)
         }
     }
 
     
-    @IBAction func playPreviousAction(sender: UIButton) {
+    @IBAction func playPreviousAction(_ sender: UIButton) {
         if playerState == 1 && fileURL != nil {
             playPrevious()
         }else{
             if let statu = reviewStatu {
                 if !statu {
-                    HUD.flash(.LabeledError(title: "", subtitle: "前往全部节目下载节目"), delay: 1.5)
+                    HUD.flash(.labeledError(title: "", subtitle: "前往全部节目下载节目"), delay: 1.5)
                 }
             }
         }
     }
-    @IBAction func playNextAction(sender: UIButton) {
+    @IBAction func playNextAction(_ sender: UIButton) {
         if playerState == 1 && fileURL != nil {
             playNext()
         }else{
             if let statu = reviewStatu {
                 if !statu {
-                    HUD.flash(.LabeledError(title: "", subtitle: "前往全部节目下载节目"), delay: 1.5)
+                    HUD.flash(.labeledError(title: "", subtitle: "前往全部节目下载节目"), delay: 1.5)
                 }
             }
         }
     }
     
-    func audioPlayerBeginInterruption(player: AVAudioPlayer) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setDouble((musicPlayer.currentTime), forKey: (programTitle.text)!)
+    func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set((musicPlayer.currentTime), forKey: (programTitle.text)!)
     }
     //电话中断恢复播放
-    func audioPlayerEndInterruption(player: AVAudioPlayer, withOptions flags: Int) {
+    func audioPlayerEndInterruption(_ player: AVAudioPlayer, withOptions flags: Int) {
 
-        if (flags == Int(AVAudioSessionInterruptionOptions.ShouldResume.rawValue)) {
+        if (flags == Int(AVAudioSessionInterruptionOptions.shouldResume.rawValue)) {
             playAudio()
         }
        
     }
     
-    @IBAction func changePlayModel(sender: UISegmentedControl) {
+    @IBAction func changePlayModel(_ sender: UISegmentedControl) {
         var statu: Bool
         if sender.selectedSegmentIndex == 0{
             statu = false
-            programTitle.hidden = true
+            programTitle.isHidden = true
         }else{
             statu = true
-            programTitle.hidden = false
+            programTitle.isHidden = false
         }
         animationForView(newmusicPlayView, statu: !statu)
         
         animationForView(newlivePlayView, statu: statu)
         newmusicPlayView.frame.origin.y = !statu ? musicViewAndLiveViewY : CGFloat(LoveqConfig.screenH - newmusicPlayView.frame.size.height * 0.5)
         newlivePlayView.frame.origin.y = statu ? musicViewAndLiveViewY : CGFloat(LoveqConfig.screenH - newmusicPlayView.frame.size.height * 0.5)
-        newlivePlayView.userInteractionEnabled = true
+        newlivePlayView.isUserInteractionEnabled = true
 
     }
-    func livePlayAtion(sender: UIButton) {
-        livePlayer = AVPlayer(URL: NSURL(string: "http://ctt.rgd.com.cn:8000/fm974")!)
-        if sender.selected {
-            sender.selected = false
+    func livePlayAtion(_ sender: UIButton) {
+        livePlayer = AVPlayer(url: URL(string: "http://ctt.rgd.com.cn:8000/fm974")!)
+        if sender.isSelected {
+            sender.isSelected = false
             livePlayer!.pause()
         }else{
-            sender.selected = true
+            sender.isSelected = true
             livePlayer!.play()
         }
         if playerState == 1 && fileURL != nil {
-            if musicPlayer.playing{
+            if musicPlayer.isPlaying{
                 pauseAudio()
             }
         }
         
     }
 
-    func animationForView(view: UIView, statu: Bool) {
-        dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue()) {
+    func animationForView(_ view: UIView, statu: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
             let musicPlayViewAnimation = POPSpringAnimation.init(propertyNamed: kPOPLayerPositionY)
-            musicPlayViewAnimation.toValue = statu ? self.musicViewAndLiveViewY :  LoveqConfig.screenH - self.newmusicPlayView.frame.size.height * 0.5
-            musicPlayViewAnimation.springSpeed = 10
-            view.layer.pop_addAnimation(musicPlayViewAnimation, forKey: "positionAnimation")
+            musicPlayViewAnimation?.toValue = statu ? self.musicViewAndLiveViewY :  LoveqConfig.screenH - self.newmusicPlayView.frame.size.height * 0.5
+            musicPlayViewAnimation?.springSpeed = 10
+            view.layer.pop_add(musicPlayViewAnimation, forKey: "positionAnimation")
 
             let musicPlayViewlayerPositionAnimation = POPSpringAnimation.init(propertyNamed: kPOPLayerScaleXY)
-            musicPlayViewlayerPositionAnimation.toValue = statu ? NSValue.init(CGSize: CGSizeMake(1.0, 1.0)) : NSValue.init(CGSize: CGSizeMake(1.0  , 1.0))
-            musicPlayViewlayerPositionAnimation.springSpeed = 10
-            musicPlayViewlayerPositionAnimation.springBounciness = 20.0
-            view.layer.pop_addAnimation(musicPlayViewlayerPositionAnimation, forKey: "layerPositionAnimation")
+            musicPlayViewlayerPositionAnimation?.toValue = statu ? NSValue.init(cgSize: CGSize(width: 1.0, height: 1.0)) : NSValue.init(cgSize: CGSize(width: 1.0  , height: 1.0))
+            musicPlayViewlayerPositionAnimation?.springSpeed = 10
+            musicPlayViewlayerPositionAnimation?.springBounciness = 20.0
+            view.layer.pop_add(musicPlayViewlayerPositionAnimation, forKey: "layerPositionAnimation")
         }
         
     }

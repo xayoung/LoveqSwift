@@ -45,7 +45,7 @@ class AboutHeaderView: UITableViewHeaderFooterView {
         }
 
         appLabel = UILabel()
-        appLabel?.font = UIFont.systemFontOfSize(18.0)
+        appLabel?.font = UIFont.systemFont(ofSize: 18.0)
         appLabel?.text = "LoveqSwift"
         self.addSubview(appLabel!)
         appLabel?.snp_makeConstraints{ (make) in
@@ -54,7 +54,7 @@ class AboutHeaderView: UITableViewHeaderFooterView {
         }
 
         programmerLabel = UILabel()
-        programmerLabel?.font = UIFont.systemFontOfSize(14.0)
+        programmerLabel?.font = UIFont.systemFont(ofSize: 14.0)
         programmerLabel?.text = "Programmer:@Xayoung"
         self.addSubview(programmerLabel!)
         programmerLabel?.snp_makeConstraints{ (make) in
@@ -63,7 +63,7 @@ class AboutHeaderView: UITableViewHeaderFooterView {
         }
 
         designerLabel = UILabel()
-        designerLabel?.font = UIFont.systemFontOfSize(14.0)
+        designerLabel?.font = UIFont.systemFont(ofSize: 14.0)
         designerLabel?.text = "Designer:@嘉児君"
         self.addSubview(designerLabel!)
         designerLabel?.snp_makeConstraints{ (make) in

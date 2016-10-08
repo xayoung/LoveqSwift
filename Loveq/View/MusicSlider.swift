@@ -28,17 +28,17 @@ class MusicSlider: UISlider {
     }
     func setup() {
         let thumbImage = UIImage.init(named: "music_slider_circle")
-        self.minimumTrackTintColor = UIColor.whiteColor()
-        self.setThumbImage(thumbImage, forState: UIControlState.Highlighted)
-        self.setThumbImage(thumbImage, forState: UIControlState.Normal)
+        self.minimumTrackTintColor = UIColor.white
+        self.setThumbImage(thumbImage, for: UIControlState.highlighted)
+        self.setThumbImage(thumbImage, for: UIControlState())
         
     }
-    override func thumbRectForBounds(bounds: CGRect, trackRect rect: CGRect, value: Float) -> CGRect {
+    override func thumbRect(forBounds bounds: CGRect, trackRect rect: CGRect, value: Float) -> CGRect {
         var newRect = CGRect.init()
         newRect.origin.x = rect.origin.x - 10
         newRect.origin.y = rect.origin.y + 2
         newRect.size.width = rect.size.width + 20
-        return CGRectInset(super.thumbRectForBounds(bounds, trackRect: newRect, value: value), 10, 10)
+        return super.thumbRect(forBounds: bounds, trackRect: newRect, value: value).insetBy(dx: 10, dy: 10)
     }
 
 }

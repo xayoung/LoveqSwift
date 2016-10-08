@@ -12,11 +12,11 @@ import MonkeyKing
 
 class LoveqConfig {
     static let WilddogURL = "https://loveq.wilddogio.com/program/"
-    static let screenW = UIScreen.mainScreen().bounds.size.width
-    static let screenH = UIScreen.mainScreen().bounds.size.height
+    static let screenW = UIScreen.main.bounds.size.width
+    static let screenH = UIScreen.main.bounds.size.height
     
-    class func durationWithAudio(url: NSURL) -> String {
-        let urlAsset = AVAsset.init(URL: url)
+    class func durationWithAudio(_ url: URL) -> String {
+        let urlAsset = AVAsset.init(url: url)
         let audioDuration = urlAsset.duration
         let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
         
@@ -24,13 +24,13 @@ class LoveqConfig {
     }
 
     class func VersionString() ->String {
-        let dict = NSBundle.mainBundle().infoDictionary
+        let dict = Bundle.main.infoDictionary
         let string = "Version \(dict!["CFBundleShortVersionString"]!) (Build\(dict!["CFBundleVersion"]!))"
         return string
     }
 
     class func shareToNetwork() ->UIActivityViewController{
-        let profileURL = NSURL(string: "http://itunes.apple.com/app/id1123325463"), nickname = "LoveqSwift 《一些事一些情》"
+        let profileURL = URL(string: "http://itunes.apple.com/app/id1123325463"), nickname = "LoveqSwift 《一些事一些情》"
         let thumbnail: UIImage? = UIImage()
         let info = MonkeyKing.Info(
             title: nickname,
@@ -59,17 +59,17 @@ class LoveqConfig {
             }
         )
         let activityViewController = UIActivityViewController(activityItems:["\(nickname), \(NSLocalizedString("LoveqSwift - 简约、纯粹的聆听体验", comment: "")) \(profileURL!)"], applicationActivities: [weChatSessionActivity, weChatTimelineActivity])
-        activityViewController.excludedActivityTypes = [UIActivityTypeMail, UIActivityTypeAddToReadingList, UIActivityTypeAssignToContact,UIActivityTypeMessage];
+        activityViewController.excludedActivityTypes = [UIActivityType.mail, UIActivityType.addToReadingList, UIActivityType.assignToContact,UIActivityType.message];
         return activityViewController
     }
 
 }
 
 class Tools  {
-    class func calculateTime(time: NSTimeInterval) -> String {
+    class func calculateTime(_ time: TimeInterval) -> String {
         let hour_   = abs(Int(time)/3600)
-        let minute_ = abs(Int((time/60) % 60))
-        let second_ = abs(Int(time  % 60))
+        let minute_ = abs(Int((time/60).truncatingRemainder(dividingBy: 60)))
+        let second_ = abs(Int(time.truncatingRemainder(dividingBy: 60)))
         
         let hour = hour_ > 9 ? "\(hour_)" : "0\(hour_)"
         let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"

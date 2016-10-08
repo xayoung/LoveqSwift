@@ -35,8 +35,8 @@ extension String {
  - parameter cell:      要注册的类名
  */
 
-func regClass(tableView:UITableView , cell:AnyClass)->Void {
-    tableView.registerClass( cell, forCellReuseIdentifier: cell.Identifier());
+func regClass(_ tableView:UITableView , cell:AnyClass)->Void {
+    tableView.register( cell, forCellReuseIdentifier: cell.Identifier());
 }
 
 /**
@@ -49,6 +49,6 @@ func regClass(tableView:UITableView , cell:AnyClass)->Void {
  
  - returns: 传入Cell类型的 实例对象
  */
-func getCell<T: UITableViewCell>(tableView:UITableView ,cell: T.Type ,indexPath:NSIndexPath) -> T {
-    return tableView.dequeueReusableCellWithIdentifier("\(cell)", forIndexPath: indexPath) as! T ;
+func getCell<T: UITableViewCell>(_ tableView:UITableView ,cell: T.Type ,indexPath:IndexPath) -> T {
+    return tableView.dequeueReusableCell(withIdentifier: "\(cell)", for: indexPath) as! T ;
 }

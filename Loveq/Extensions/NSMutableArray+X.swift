@@ -11,10 +11,10 @@ import Foundation
 
 extension NSMutableArray {
     
-    public override func descriptionWithLocale(locale: AnyObject?) -> String {
+    open override func description(withLocale locale: Any?) -> String {
         var str = "(\n"
         
-        [self .enumerateObjectsUsingBlock({
+        [self .enumerateObjects({
             str += "\t\($0.0), \n"
         })]
         
