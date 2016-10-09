@@ -121,20 +121,18 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         
         let ref = Wilddog(url: "https://loveq.wilddogio.com/review")
         
-        ref.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot.value)
-            let statuDict = snapshot.value as! NSDictionary
+        ref?.observe(.value, with: { snapshot in
+            print(snapshot?.value)
+            let statuDict = snapshot?.value as! NSDictionary
             
-            if statuDict["statu104"] as! NSString == "1" {
+            if statuDict["statu110"] as! NSString == "1" {
                 self.reviewStatu = true
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "reviewStatu")
+                UserDefaults.standard.set(true, forKey: "reviewStatu")
             }else{
                 self.reviewStatu = false
-                NSUserDefaults.standardUserDefaults().setBool(false, forKey: "reviewStatu")
+                UserDefaults.standard.set(false, forKey: "reviewStatu")
             }
-            }, withCancelBlock: { error in
-                print(error.description)
-        })
+            })
         
         playIndex = 0
         musicSlider.setValue(0.0, animated: true)
@@ -215,7 +213,12 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         
         musicSlider = MusicSlider.init(frame: CGRect.zero)
         musicSlider.maximumTrackTintColor = UIColor.init(white: 1.0, alpha: 0.3)
-        musicSlider.addTarget(self, action: #selector(MusicViewController.didChangeMusicSlider(_:)), for: UIControlEvents.allEvents)
+        musicSlider.isContinuous = false
+        musicSlider.addTarget(self, action: #selector(didChangeMusicSliderUpdateProgressLabelValue(_:)), for: UIControlEvents.touchDragInside
+        )
+        musicSlider.addTarget(self, action: #selector(didChangeMusicSlider(_:)), for: UIControlEvents.valueChanged
+        )
+
         backgroundView.addSubview(musicSlider)
         musicSlider.snp.makeConstraints { (make) in
             make.centerY.equalTo(label1.snp.centerY)
@@ -383,11 +386,20 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
             playNext()
         }
     }
-    
+
+    //MARK: 更新进度条时间显示
     func updateProgressLabelValue() {
         
         beginTimeLabel.text = Tools.calculateTime(musicPlayer.currentTime)
         endTimeLabel.text = Tools.calculateTime(musicPlayer.duration)
+    }
+
+
+    func didChangeMusicSliderUpdateProgressLabelValue(_ sender: AnyObject) {
+        if playerState == 1 && fileURL != nil {
+            musicTimer.fireDate = NSDate.distantFuture
+            beginTimeLabel.text = Tools.calculateTime(musicPlayer.duration * Double(musicSlider.value))
+        }
     }
 
     @IBAction func playAction(_ sender: AnyObject) {
@@ -479,7 +491,9 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         }
     }
     @IBAction func didChangeMusicSlider(_ sender: AnyObject) {
+
         if playerState == 1 && fileURL != nil {
+            musicTimer.fireDate = NSDate.init() as Date
             musicPlayer.currentTime = musicPlayer.duration * Double(musicSlider.value)
         }
     }

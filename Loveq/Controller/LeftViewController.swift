@@ -132,7 +132,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
                 }
             }
         }
-        LoveqClient.sharedInstance.drawerController?.closeDrawerAnimated(true, completion: nil)
+        LoveqClient.sharedInstance.drawerController?.closeDrawer(animated: true, completion: nil)
     }
 
     func shareToNetwork(){
@@ -143,23 +143,23 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
             title: nickname,
             description: NSLocalizedString("纯粹、简约的聆听体验.", comment: ""),
             thumbnail: thumbnail,
-            media: .URL(profileURL!)
+            media: .url(profileURL!)
         )
 
-        let sessionMessage = MonkeyKing.Message.WeChat(.Session(info: info))
+        let sessionMessage = MonkeyKing.Message.weChat(.session(info: info))
 
         let weChatSessionActivity = WeChatActivity(
-            type: .Session,
+            type: .session,
             message: sessionMessage,
             completionHandler: { success in
                 print("share Profile to WeChat Session success: \(success)")
             }
         )
 
-        let timelineMessage = MonkeyKing.Message.WeChat(.Timeline(info: info))
+        let timelineMessage = MonkeyKing.Message.weChat(.timeline(info: info))
 
         let weChatTimelineActivity = WeChatActivity(
-            type: .Timeline,
+            type: .timeline,
             message: timelineMessage,
             completionHandler: { success in
                 print("share Profile to WeChat Timeline success: \(success)")
@@ -167,7 +167,7 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         )
         let activityViewController = UIActivityViewController(activityItems:["\(nickname), \(NSLocalizedString("LoveqSwift - 简约、纯粹的聆听体验", comment: "")) \(profileURL!)"], applicationActivities: [weChatSessionActivity, weChatTimelineActivity])
         activityViewController.excludedActivityTypes = [UIActivityType.mail, UIActivityType.addToReadingList, UIActivityType.assignToContact,UIActivityType.message];
-        self.presentViewController(activityViewController, animated: true, completion: nil)
+        self.present(activityViewController, animated: true, completion: nil)
     }
 
 }

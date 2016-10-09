@@ -12,6 +12,7 @@ import MediaPlayer
 import MZDownloadManager
 import PKHUD
 import Wilddog
+import LeanCloud
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        NotificationCenter.defaultCenter().addObserver(self, selector: NSSelectorFromString("downloadFinishedNotification:"), name: MZUtility.DownloadCompletedNotif as String, object: nil)
+        //注册LeanCloud
+        LeanCloud.initialize(applicationID: "xSKEPbolbbf8kzTyPwh0k8IN-gzGzoHsz", applicationKey: "yfsU1LM3UsB2UPQPURS9zvew")
+
+        NotificationCenter.default.addObserver(self, selector: NSSelectorFromString("downloadFinishedNotification:"), name: NSNotification.Name(rawValue: MZUtility.DownloadCompletedNotif as String), object: nil)
         
         let storyboard = UIStoryboard(name: "MusicPlayer", bundle: nil)
         let rootViewController = storyboard.instantiateViewController(withIdentifier: "MusicNavigationController") as! LoveqNavigationController
@@ -32,8 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let drawerController = DrawerController(centerViewController: centerNav, leftDrawerViewController: leftViewController , rightDrawerViewController: rightViewController)
         drawerController.maximumLeftDrawerWidth=180
         drawerController.maximumRightDrawerWidth=220
-        drawerController.openDrawerGestureModeMask=OpenDrawerGestureMode.All
-        drawerController.closeDrawerGestureModeMask=CloseDrawerGestureMode.All
+        drawerController.openDrawerGestureModeMask=OpenDrawerGestureMode.all
+        drawerController.closeDrawerGestureModeMask=CloseDrawerGestureMode.all
         LoveqClient.sharedInstance.drawerController = drawerController
         LoveqClient.sharedInstance.centerViewController = centerNav.viewControllers[0] as? MusicViewController
         LoveqClient.sharedInstance.centerNavigation = centerNav
@@ -82,16 +86,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication , didFailToRegisterForRemoteNotificationsWithError error: Error ) {
         
-        if error.code == 3010 {
-            
-            print ( "Push notifications are not supported in the iOS Simulator." )
-            
-        } else {
-            
-            print ( "application:didFailToRegisterForRemoteNotificationsWithError: \(error) " )
-            
-        }
-        
+//        if error.code == 3010 {
+//            
+//            print ( "Push notifications are not supported in the iOS Simulator." )
+//            
+//        } else {
+//            
+//            print ( "application:didFailToRegisterForRemoteNotificationsWithError: \(error) " )
+//            
+//        }
+
     }
     //app在前台运行时收到远程通知
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
@@ -99,8 +103,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(userInfo)
         
         XGPush.handleReceiveNotification(userInfo);
-
-        let messageA = userInfo["aps"]!["alert"] as! String
+        let dict =  userInfo["aps"]! as! NSDictionary
+        let messageA = dict["alert"] as! String
         print(messageA)
         DispatchQueue.main.async(execute: {
             let optionMenu = UIAlertController(title: "推送通知", message: messageA, preferredStyle: .alert)
@@ -247,7 +251,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if  UIApplication.shared.applicationState == UIApplicationState.active{
             let fileName = notification.object as! String
             let url = URL.init(string: fileName)
-            HUD.flash(.LabeledSuccess(title: "", subtitle: "\((url?.lastPathComponent)!)下载完成！"), delay: 1.0)
+            HUD.flash(.labeledSuccess(title: "", subtitle: "\((url?.lastPathComponent)!)下载完成！"), delay: 1.0)
         } 
         
     }

@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DrawerController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>FXBlurView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>LeanCloud.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -59,6 +69,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Wilddog.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,17 +87,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>141D689D6771F0FC7A78953D6D9600C0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>19451D03779D63BE3E54BEA1A724AA38</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>19B8BA764916E9DAAF4E4E661C31C930</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1CA9AF0E2A0D35C7F95213665056BF71</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>30C28D9C732ED10B89A027C29A5FC3B4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +107,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>53CDB578197EE9C3C8E45FF76D4D43CC</key>
+		<key>42D68FD59DCB1236F1D44932CD9C5F4F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>772D06DF30B4BCDB10DD1DA0FC614088</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E23D8ABAA674502512BDDCF0F887DAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,7 +147,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D819B7E4D4AD44616907A2B0541B211A</key>
+		<key>D8AAA060E443E8548075ED3B249022A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

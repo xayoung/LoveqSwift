@@ -84,8 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DrawerController/DrawerController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FXBlurView/FXBlurView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/LeanCloud/LeanCloud.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MZDownloadManager/MZDownloadManager.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MonkeyKing/MonkeyKing.framework"
   install_framework "$BUILT_PRODUCTS_DIR/NVActivityIndicatorView/NVActivityIndicatorView.framework"
@@ -93,5 +95,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PKHUD/PKHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Ruler/Ruler.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Wilddog/Wilddog.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi

@@ -12,7 +12,7 @@ import UIKit
 class PrivateSettingViewController: UITableViewController {
     
     fileprivate let dataSourcePath = Bundle.main.path(forResource: "SettingSource", ofType: "plist")
-    var dataArray = []
+    var dataArray: NSArray = []
     let ID = "settingCell"
     let headerID = "headerView"
     
@@ -29,7 +29,7 @@ class PrivateSettingViewController: UITableViewController {
     
 
     override func viewDidLoad() {
-        dataArray = NSArray(contentsOfFile:dataSourcePath!)! as! [Any]
+        dataArray = NSArray(contentsOfFile:dataSourcePath!)!
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: ID)
         tableView.register(AboutHeaderView.self, forHeaderFooterViewReuseIdentifier: headerID)
     }

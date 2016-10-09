@@ -36,23 +36,23 @@ class LoveqConfig {
             title: nickname,
             description: NSLocalizedString("最纯粹的《一些事一些情》下载播放器.", comment: ""),
             thumbnail: thumbnail,
-            media: .URL(profileURL!)
+            media: .url(profileURL!)
         )
 
-        let sessionMessage = MonkeyKing.Message.WeChat(.Session(info: info))
+        let sessionMessage = MonkeyKing.Message.weChat(.session(info: info))
 
         let weChatSessionActivity = WeChatActivity(
-            type: .Session,
+            type: .session,
             message: sessionMessage,
             completionHandler: { success in
                 print("share Profile to WeChat Session success: \(success)")
             }
         )
 
-        let timelineMessage = MonkeyKing.Message.WeChat(.Timeline(info: info))
+        let timelineMessage = MonkeyKing.Message.weChat(.timeline(info: info))
 
         let weChatTimelineActivity = WeChatActivity(
-            type: .Timeline,
+            type: .timeline,
             message: timelineMessage,
             completionHandler: { success in
                 print("share Profile to WeChat Timeline success: \(success)")

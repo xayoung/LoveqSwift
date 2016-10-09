@@ -36,7 +36,7 @@ extension String {
  */
 
 func regClass(_ tableView:UITableView , cell:AnyClass)->Void {
-    tableView.register( cell, forCellReuseIdentifier: cell.Identifier());
+    tableView.register(cell, forCellReuseIdentifier: "\(cell)");
 }
 
 /**

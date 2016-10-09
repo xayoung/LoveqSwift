@@ -57,7 +57,7 @@ class DownloadingCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func updateCellForRowAtIndexPath(_ indexPath : IndexPath, downloadModel: MZDownloadModel) {
-        self.title?.text = "文件名:\(downloadModel.fileName)"
+        self.title?.text = "文件名:\(downloadModel.fileName!)"
         self.progressDownload?.progress = downloadModel.progress
         var remainingTime: String = ""
         if downloadModel.progress == 1.0 {

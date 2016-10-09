@@ -112,8 +112,8 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         button.setTitle("下 载", for: UIControlState())
         button.addTarget(self, action: NSSelectorFromString("multipleDownloadAction"), for: .touchUpInside)
         downloadButtonView?.addSubview(button)
-        button.snp_makeConstraints { (make) in
-            make.center.equalTo((downloadButtonView?.snp_center)!)
+        button.snp.makeConstraints { (make) in
+            make.center.equalTo((downloadButtonView?.snp.center)!)
             make.height.equalTo(height)
             make.width.equalTo(LoveqConfig.screenW)
         }
@@ -154,7 +154,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
                 let model = mulitpleURLArray[index]
                 addDownloadTask(model as! ProgrammerListModel)
             }
-            HUD.flash(.Label("已添加至下载队列"))
+            HUD.flash(.label("已添加至下载队列"))
         }
         
     }
@@ -182,7 +182,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     func loadFileAppendArray() {
         downloadedFilesArray.removeAll()
         do {
-            let contentOfDir: [String] = try FileManager.defaultManager().contentsOfDirectoryAtPath(MZUtility.baseFilePath as String)
+            let contentOfDir: [String] = try FileManager.default.contentsOfDirectory(atPath: MZUtility.baseFilePath as String)
             var contentOfDir2: [String] = [String]()
             for str in contentOfDir{
                 if (str as NSString).contains(".mp3") {
@@ -207,37 +207,37 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
     func loadNewData() {
         
-        let activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.BallBeat, color: UIColor.redColor())
+        let activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.ballBeat, color: UIColor.red)
         activityIndicatorView.center = CGPoint(x: LoveqConfig.screenW * 0.5, y: LoveqConfig.screenH * 0.5 - 64)
         self.view.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
         
         let ref = Wilddog(url: LoveqConfig.WilddogURL + year! )
-        ref.observeEventType(.Value, withBlock: { snapshot in
-            
-            let dict = snapshot.value as! NSDictionary
+
+
+        ref?.observe(.value, with: { snapshot in
+
+            let dict = snapshot?.value as! NSDictionary
             self.dataSource = dict as! [String : NSArray]
             
             var array = dict.allKeys
             
-            array.sortInPlace{($0 as! String) > ($1 as! String)}
+            array.sort{($0 as! String) > ($1 as! String)}
             
             for str in array{
-                let mapArray = dict.objectForKey(str) as! NSArray
+                let mapArray = dict.object(forKey: str) as! NSArray
                 var outArray: [ProgrammerListModel] = [ProgrammerListModel]()
                 for dic in 0 ..< mapArray.count {
-                    let model = Mapper<ProgrammerListModel>().map(mapArray[dic])
+                    let model = Mapper<ProgrammerListModel>().map(JSON: mapArray[dic] as! [String : Any])
                     outArray.append(model!)
                 }
                 self.dataArray.append(outArray)
             }
-            self.sectionArray = array
+            self.sectionArray = array as NSArray
             activityIndicatorView.stopAnimating()
             sleep(1)
             self.animateTable()
-            }, withCancelBlock: { error in
-                print(error.description)
-        })
+            })
         
     }
     
@@ -254,12 +254,12 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
             let mapArray = (dict! as AnyObject).object(forKey: str) as! NSArray
             var outArray: [ProgrammerListModel] = [ProgrammerListModel]()
             for dic in 0 ..< mapArray.count {
-                let model = Mapper<ProgrammerListModel>().map(mapArray[dic])
+                let model = Mapper<ProgrammerListModel>().map(JSON: mapArray[dic] as! [String : Any])
                 outArray.append(model!)
             }
             self.dataArray.append(outArray)
         }
-        self.sectionArray = array
+        self.sectionArray = array! as NSArray
         
     }
     
@@ -385,7 +385,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         let saveAction = UIAlertAction(title: "下载", style: .destructive, handler: {
             (alert: UIAlertAction!) -> Void in
             self.addDownloadTask(model)
-            HUD.flash(.Label("已添加至下载队列"))
+            HUD.flash(.label("已添加至下载队列"))
         })
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -395,13 +395,14 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
-    
+
     func addDownloadTask(_ model: ProgrammerListModel) {
         let fileURL  : NSString = model.url! as NSString
-        var fileName : NSString = model.title! + ".mp3"
-        fileName = MZUtility.getUniqueFileNameWithPath((MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(fileName as String))
-        
-        self.DownloadingVC!.downloadManager.addDownloadTask(fileName as String, fileURL: fileURL.stringByAddingPercentEscapesUsingEncoding(String.Encoding.utf8)!)
+        let fileName : String = model.title! + ".mp3"
+        var fileName2 : NSString
+        fileName2 = MZUtility.getUniqueFileNameWithPath((MZUtility.baseFilePath as NSString).appendingPathComponent(fileName) as NSString)
+
+        self.DownloadingVC!.downloadManager.addDownloadTask(fileName2 as String, fileURL: fileURL.addingPercentEscapes(using: String.Encoding.utf8.rawValue)!)
     }
     
     func animationForView(_ view: UIView, statu: Bool) {

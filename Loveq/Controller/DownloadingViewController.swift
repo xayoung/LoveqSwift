@@ -22,7 +22,7 @@ class DownloadingViewController: UITableViewController {
         [unowned self] in
         let sessionIdentifer: String = "com.iosDevelopment.MZDownloadManager.BackgroundSession"
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         var completion = appDelegate.backgroundSessionCompletionHandler
         
         let downloadmanager = MZDownloadManager(session: sessionIdentifer, delegate: self, completion: completion)
@@ -39,7 +39,7 @@ class DownloadingViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if downloadManager.downloadingArray.count == 0{
-            HUD.flash(.Label("暂无下载任务"), delay: 1.0)
+            HUD.flash(.label("暂无下载任务"), delay: 1.0)
         }
     }
 
@@ -94,22 +94,22 @@ extension DownloadingViewController {
 
     func showAppropriateActionController(_ requestStatus: String) {
 
-        if requestStatus == TaskStatus.Downloading.description() {
+        if requestStatus == TaskStatus.downloading.description() {
             self.showAlertControllerForPause()
-        } else if requestStatus == TaskStatus.Failed.description() {
+        } else if requestStatus == TaskStatus.failed.description() {
             self.showAlertControllerForRetry()
-        } else if requestStatus == TaskStatus.Paused.description() {
+        } else if requestStatus == TaskStatus.paused.description() {
             self.showAlertControllerForStart()
         }
     }
 
     func showAlertControllerForPause() {
 
-        let pauseAction = UIAlertAction(title: "暂停", style: .Default) { (alertAction: UIAlertAction) in
+        let pauseAction = UIAlertAction(title: "暂停", style: .default) { (alertAction: UIAlertAction) in
             self.downloadManager.pauseDownloadTaskAtIndex(self.selectedIndexPath.row)
         }
 
-        let removeAction = UIAlertAction(title: "移除下载任务", style: .Destructive) { (alertAction: UIAlertAction) in
+        let removeAction = UIAlertAction(title: "移除下载任务", style: .destructive) { (alertAction: UIAlertAction) in
             self.downloadManager.cancelTaskAtIndex(self.selectedIndexPath.row)
         }
 
@@ -125,11 +125,11 @@ extension DownloadingViewController {
 
     func showAlertControllerForRetry() {
 
-        let retryAction = UIAlertAction(title: "重置", style: .Default) { (alertAction: UIAlertAction) in
+        let retryAction = UIAlertAction(title: "重置", style: .default) { (alertAction: UIAlertAction) in
             self.downloadManager.retryDownloadTaskAtIndex(self.selectedIndexPath.row)
         }
 
-        let removeAction = UIAlertAction(title: "移除下载任务", style: .Destructive) { (alertAction: UIAlertAction) in
+        let removeAction = UIAlertAction(title: "移除下载任务", style: .destructive) { (alertAction: UIAlertAction) in
             self.downloadManager.cancelTaskAtIndex(self.selectedIndexPath.row)
         }
 
@@ -145,11 +145,11 @@ extension DownloadingViewController {
 
     func showAlertControllerForStart() {
 
-        let startAction = UIAlertAction(title: "开始", style: .Default) { (alertAction: UIAlertAction) in
+        let startAction = UIAlertAction(title: "开始", style: .default) { (alertAction: UIAlertAction) in
             self.downloadManager.resumeDownloadTaskAtIndex(self.selectedIndexPath.row)
         }
 
-        let removeAction = UIAlertAction(title: "移除下载任务", style: .Destructive) { (alertAction: UIAlertAction) in
+        let removeAction = UIAlertAction(title: "移除下载任务", style: .destructive) { (alertAction: UIAlertAction) in
             self.downloadManager.cancelTaskAtIndex(self.selectedIndexPath.row)
         }
 
@@ -217,8 +217,8 @@ extension DownloadingViewController: MZDownloadManagerDelegate {
         let indexPath = IndexPath.init(row: index, section: 0)
         tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
 
-        let docDirectoryPath : NSString = (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(downloadModel.fileName)
-        NotificationCenter.defaultCenter().postNotificationName(MZUtility.DownloadCompletedNotif as String, object: docDirectoryPath)
+        let docDirectoryPath : NSString = (MZUtility.baseFilePath as NSString).appendingPathComponent(downloadModel.fileName) as NSString
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: MZUtility.DownloadCompletedNotif as String), object: docDirectoryPath)
     }
 
     func downloadRequestDidFailedWithError(_ error: NSError, downloadModel: MZDownloadModel, index: Int) {

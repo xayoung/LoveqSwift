@@ -37,7 +37,7 @@ class AboutHeaderView: UITableViewHeaderFooterView {
         let icon = UIImage.init(named: "logo-180")
         appIcon = UIImageView.init(image: icon)
         self.addSubview(appIcon!)
-        appIcon?.snp_makeConstraints{ (make) in
+        appIcon?.snp.makeConstraints{ (make) in
             make.centerX.equalTo(self)
             make.top.equalTo(10)
             make.width.equalTo(100)
@@ -48,27 +48,27 @@ class AboutHeaderView: UITableViewHeaderFooterView {
         appLabel?.font = UIFont.systemFont(ofSize: 18.0)
         appLabel?.text = "LoveqSwift"
         self.addSubview(appLabel!)
-        appLabel?.snp_makeConstraints{ (make) in
+        appLabel?.snp.makeConstraints{ (make) in
             make.centerX.equalTo(self)
-            make.top.equalTo((appIcon?.snp_bottom)!).offset(8)
+            make.top.equalTo((appIcon?.snp.bottom)!).offset(8)
         }
 
         programmerLabel = UILabel()
         programmerLabel?.font = UIFont.systemFont(ofSize: 14.0)
         programmerLabel?.text = "Programmer:@Xayoung"
         self.addSubview(programmerLabel!)
-        programmerLabel?.snp_makeConstraints{ (make) in
+        programmerLabel?.snp.makeConstraints{ (make) in
             make.centerX.equalTo(self)
-            make.top.equalTo((appLabel?.snp_bottom)!).offset(8)
+            make.top.equalTo((appLabel?.snp.bottom)!).offset(8)
         }
 
         designerLabel = UILabel()
         designerLabel?.font = UIFont.systemFont(ofSize: 14.0)
         designerLabel?.text = "Designer:@嘉児君"
         self.addSubview(designerLabel!)
-        designerLabel?.snp_makeConstraints{ (make) in
-            make.left.equalTo((programmerLabel?.snp_left)!)
-            make.top.equalTo((programmerLabel?.snp_bottom)!).offset(8)
+        designerLabel?.snp.makeConstraints{ (make) in
+            make.left.equalTo((programmerLabel?.snp.left)!)
+            make.top.equalTo((programmerLabel?.snp.bottom)!).offset(8)
         }
 
     }

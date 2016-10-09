@@ -10,6 +10,7 @@ import UIKit
 import ObjectMapper
 import MZDownloadManager
 import Wilddog
+import LeanCloud
 //import SwiftRefresher
 import NVActivityIndicatorView
 private let reuseIdentifier = "CellID"
@@ -60,19 +61,34 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
     func loadData(){
         self.dataSource.removeAll()
 
-        let ref = Wilddog(url: LoveqConfig.WilddogURL + "index/programIndex")
-        ref.observeEventType(.Value, withBlock: { snapshot in
-            let dict = snapshot.value as! NSDictionary
-            var array = dict.allKeys
-            array.sortInPlace{($0 as! String) > ($1 as! String)}
-            self.dataSource = array
-            self.collectionView.srf_endRefreshing()
-            self.activityIndicatorView!.stopAnimating()
-            self.collectionView.reloadData()
-            }, withCancelBlock: { error in
-                print(error.description)
-                self.collectionView.srf_endRefreshing()
-        })
+        let keyQuery = LCQuery(className: "ProgramYearList")
+        keyQuery.whereKey("year", .prefixedBy("2"))
+        keyQuery.whereKey("year", .descending)
+        keyQuery.find { result in
+            switch result {
+            case .success(let list):
+                print("查询"+"\(list)")
+                self.dataSource = list
+                self.activityIndicatorView!.stopAnimating()
+                self.collectionView.reloadData()
+            break // 查询成功
+            case .failure(let error):
+                print(error)
+            }
+        }
+
+
+
+//        let ref = Wilddog(url: LoveqConfig.WilddogURL + "index/programIndex")
+//        ref?.observe(.value, with: { snapshot in
+//            let dict = snapshot?.value as! NSDictionary
+//            var array = dict.allKeys
+//            array.sort{($0 as! String) > ($1 as! String)}
+//            self.dataSource = array as Array<AnyObject>
+//
+//            self.activityIndicatorView!.stopAnimating()
+//            self.collectionView.reloadData()
+//            })
     }
 
 
@@ -89,30 +105,43 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
 
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = getCollectionViewCell(collectionView, cell: ProgrammeCollectionCell.self, indexPath: indexPath)
-        cell.year?.text = dataSource[(indexPath as NSIndexPath).row] as? String
+        let object = dataSource[(indexPath as NSIndexPath).row] as! LCObject
+        let str =  object.get("year") as! LCString
+        let countStr =  object.get("count") as! LCString
+        cell.year?.text = str.value
         cell.backgroundColor = UIColor.white
-        let ref = Wilddog(url: LoveqConfig.WilddogURL + "index/programIndex/" + (dataSource[indexPath.row] as! String) )
-        ref.observeEventType(.Value, withBlock: { snapshot in
-            let dict = snapshot.value as! NSDictionary
-            let programCount = dict["count"] as! NSString
-            if programCount.isEqualToString("0"){
-                cell.image?.image = UIImage.init(named: "img_year_2016")
-                cell.programCount?.text = "更新中"
-            }else{
-                cell.image?.image = UIImage.init(named: "img_year_def")
-                cell.programCount?.text = "共" + (programCount as String) + "期"
-            }
-            
-            }, withCancelBlock: { error in
-                print(error.description)
-        })
-        
+
+        if countStr.value.isEqual("0"){
+            cell.image?.image = UIImage.init(named: "img_year_2016")
+            cell.programCount?.text = "更新中"
+
+        }else{
+            cell.image?.image = UIImage.init(named: "img_year_def")
+            cell.programCount?.text = "共" + (countStr.value) + "期"
+        }
+//        let ref = Wilddog(url: LoveqConfig.WilddogURL + "index/programIndex/" + (dataSource[indexPath.row] as! String) )
+//        ref?.observe(.value, with: { snapshot in
+//            let dict = snapshot?.value as! NSDictionary
+//            let programCount = dict["count"] as! NSString
+//            if programCount.isEqual(to: "0"){
+//                cell.image?.image = UIImage.init(named: "img_year_2016")
+//                cell.programCount?.text = "更新中"
+//
+//            }else{
+//                cell.image?.image = UIImage.init(named: "img_year_def")
+//                cell.programCount?.text = "共" + (programCount as String) + "期"
+//            }
+//
+//            })
+
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let object = dataSource[(indexPath as NSIndexPath).row] as! LCObject
+        let str =  object.get("year") as! LCString
         let vc = ProgrammeDetailListViewController()
-        vc.year = dataSource[(indexPath as NSIndexPath).row] as? String
+        vc.year = str.value
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
