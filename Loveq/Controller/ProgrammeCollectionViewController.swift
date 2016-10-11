@@ -9,7 +9,6 @@
 import UIKit
 import ObjectMapper
 import MZDownloadManager
-import Wilddog
 import LeanCloud
 //import SwiftRefresher
 import NVActivityIndicatorView
@@ -31,7 +30,7 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
             let paddingX: CGFloat = 20.0
             layout.sectionInset = UIEdgeInsetsMake(paddingY, paddingX, paddingY, paddingX)
             layout.minimumLineSpacing = paddingY
-            _collectionView = UICollectionView.init(frame: CGRect(x: 0, y: 50, width: LoveqConfig.screenW, height: LoveqConfig.screenH - 50), collectionViewLayout: layout)
+            _collectionView = UICollectionView.init(frame: CGRect(x: 0, y: 60, width: LoveqConfig.screenW, height: LoveqConfig.screenH - 60), collectionViewLayout: layout)
             regCollectionViewClass(_collectionView, cell: ProgrammeCollectionCell.self)
             _collectionView.dataSource = self
             _collectionView.delegate = self
@@ -48,6 +47,7 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
 //        collectionView.srf_addRefresher(refresher)
         self.title = "全部节目"
         view.backgroundColor = UIColor.white
+        self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(collectionView)
 
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.ballBeat, color: UIColor.red)
@@ -67,7 +67,6 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
         keyQuery.find { result in
             switch result {
             case .success(let list):
-                print("查询"+"\(list)")
                 self.dataSource = list
                 self.activityIndicatorView!.stopAnimating()
                 self.collectionView.reloadData()

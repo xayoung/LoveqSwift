@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import Wilddog
 import ObjectMapper
 import NVActivityIndicatorView
 import MZDownloadManager
 import PKHUD
 import FXBlurView
 import pop
+import LeanCloud
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -48,12 +49,12 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
     var sectionArray: NSArray = []
     
-    var dataArray: Array<[ProgrammerListModel]> = Array<[ProgrammerListModel]>()
+    var dataArray: Array<ProgrammerListModel> = Array<ProgrammerListModel>()
     
     var DownloadingVC: DownloadingViewController?
     
     let ID = "cell1"
-    
+
     var downloadedFilesArray: [String] = []
     
     var reviewStatu: Bool?
@@ -70,7 +71,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
                 return _tableView!;
             }
             _tableView = UITableView();
-            _tableView.frame = CGRect( x: 0, y: 60, width: LoveqConfig.screenW, height: LoveqConfig.screenH)
+            _tableView.frame = CGRect( x: 0, y: 60, width: LoveqConfig.screenW, height: LoveqConfig.screenH - 60)
             _tableView.backgroundColor = UIColor.clear
             _tableView.estimatedRowHeight = 200
             _tableView.separatorStyle = UITableViewCellSeparatorStyle.none;
@@ -93,12 +94,14 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         regClass(self.tableView, cell: ProgrammeDetailViewCell.self)
         view.addSubview(tableView)
         setUpDownloadingViewController()
-        let yearNum = Int(self.year!)
-        if yearNum > 2015 {
-            loadNewData()
-        }else{
-            loadOldData()
-        }
+//        let yearNum = Int(self.year!)
+//        if yearNum > 2015 {
+//            loadNewData()
+//        }else{
+//            loadOldData()
+//        }
+
+        loadLeanCloudData()
         loadFileAppendArray()
         setupDownloadButtonView()
     }
@@ -204,7 +207,41 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     func setUpDownloadingViewController() {
         DownloadingVC = LoveqClient.sharedInstance.downloadingController
     }
-    
+
+    func loadLeanCloudData() {
+        let activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.ballBeat, color: UIColor.red)
+        activityIndicatorView.center = CGPoint(x: LoveqConfig.screenW * 0.5, y: LoveqConfig.screenH * 0.5 - 64)
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.startAnimating()
+
+        let keyQuery = LCQuery(className: "LoveQ")
+        keyQuery.whereKey("date", .prefixedBy(self.year!))
+        keyQuery.whereKey("date", .descending)
+        keyQuery.find { result in
+            switch result {
+            case .success(let list):
+                self.appendToDataArray(list as NSArray)
+                activityIndicatorView.stopAnimating()
+                self.animateTable()
+            break // 查询成功
+            case .failure(let error):
+                print(error)
+            }
+        }
+
+    }
+
+    func appendToDataArray(_ list: NSArray) {
+        for item in list {
+            let obj = item as! LCObject
+            let title = obj.get("date") as! LCString
+            let url = obj.get("url") as! LCString
+            let model = Mapper<ProgrammerListModel>().map(JSON: ["title":title.value,"url":url.value])
+            self.dataArray.append(model!)
+        }
+
+    }
+    /*
     func loadNewData() {
         
         let activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.ballBeat, color: UIColor.red)
@@ -261,7 +298,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         }
         self.sectionArray = array! as NSArray
         
-    }
+    }*/
     
     func animateTable() {
         
@@ -279,7 +316,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     }
     
     // MARK: - Table view data source
-    
+    /*
      func numberOfSections(in tableView: UITableView) -> Int {
         return dataArray.count
     }
@@ -292,6 +329,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(tableView, cell: ProgrammeDetailViewCell.self, indexPath: indexPath)
         let model = dataArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
@@ -325,8 +363,52 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         cell.selectedBackgroundView = bgColorView
         
         return cell
+    }*/
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataArray.count
     }
-    
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = getCell(tableView, cell: ProgrammeDetailViewCell.self, indexPath: indexPath)
+        let model = dataArray[indexPath.row]
+        cell.contentView.backgroundColor = UIColor.clear
+        cell.model = model
+        let attrString = NSMutableAttributedString.init(string: model.title!)
+        attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, model.title!.characters.count))
+        cell.title?.attributedText = attrString
+
+//        var index: NSInteger = 0
+//        for a in 0...(indexPath as NSIndexPath).section {
+//            index += a == (indexPath as NSIndexPath).section ?  (indexPath as NSIndexPath).row : dataArray[(indexPath as NSIndexPath).section].count
+//        }
+        cell.indexNum?.text = String(indexPath.row + 1)
+        cell.indexNum?.isHidden = tableView.isEditing ? true : false
+        cell.delegate = self
+        cell.ActionImg?.isHidden = reviewStatu! ? true : false
+        cell.ActionImg?.isUserInteractionEnabled = true
+        cell.ActionImg?.setImage(UIImage.init(named: "btn_download_nor"), for: UIControlState())
+        cell.textLabel?.backgroundColor = UIColor.clear
+        cell.textLabel?.textColor = UIColor.black
+        if downloadedFilesArray.contains((model.title! as NSString).substring(to: 10)) {
+            cell.ActionImg?.setImage(UIImage.init(named: "ic_downloaded"), for: UIControlState())
+            cell.ActionImg?.isUserInteractionEnabled = false
+            cell.textLabel?.textColor = UIColor.init(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
+
+        }
+
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.clear
+        cell.selectedBackgroundView = bgColorView
+
+        return cell
+    }
+
+
     func downloadMusicAction(_ model: ProgrammerListModel) {
         if reviewStatu != nil {
             if !reviewStatu! {
@@ -341,7 +423,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing {
-            let model = dataArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+            let model = dataArray[indexPath.row]
             if !mulitpleURLArray.contains(model) {
                 mulitpleURLArray.add(model)
             }
@@ -352,7 +434,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let model = dataArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        let model = dataArray[indexPath.row]
         
         if mulitpleURLArray.contains(model) {
             mulitpleURLArray.remove(model)

@@ -8,7 +8,6 @@ target 'Loveq' do
     pod 'Ruler’
     pod 'ObjectMapper'
     pod 'MZDownloadManager’, podspec:’https://raw.githubusercontent.com/mzeeshanid/MZDownloadManager/master/MZDownloadManager.podspec'
-    pod 'Wilddog’,’1.0.0’
     pod 'NVActivityIndicatorView'
     pod 'DrawerController'
     pod 'FXBlurView'
@@ -17,5 +16,6 @@ target 'Loveq' do
     pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'
     pod 'QQ_XGPush'
     pod 'LeanCloud’,’1.3.0’
+    pod 'JPush'
 end
 

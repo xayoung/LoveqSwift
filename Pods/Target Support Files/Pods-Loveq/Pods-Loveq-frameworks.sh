@@ -95,6 +95,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PKHUD/PKHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Ruler/Ruler.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Wilddog/Wilddog.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi

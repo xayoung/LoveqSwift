@@ -71,6 +71,10 @@ freely, subject to the following restrictions:
    misrepresented as being the original software.
 3. This notice may not be removed or altered from any source distribution.
 
+## JPush
+
+Copyright jpush.cn
+
 ## LeanCloud
 
                                  Apache License
@@ -464,10 +468,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-
-## Wilddog
-
-https://www.wilddog.com/terms/sa
 
 ## pop
 

@@ -13,8 +13,9 @@ import MZDownloadManager
 import PKHUD
 import pop
 import SnapKit
-import Wilddog
-
+import LeanCloud
+import DrawerController
+import MediaPlayer
 
 class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDelegate {
     
@@ -51,6 +52,10 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     let musicViewAndLiveViewY = LoveqConfig.screenH + 100
     
     var musicSlider: MusicSlider!
+
+    let drawerContoller = LoveqClient.sharedInstance.drawerController
+
+    let nowPlayingCenter = MPNowPlayingInfoCenter.default()
     
     var beginTimeLabel: UILabel!
     var endTimeLabel: UILabel!
@@ -119,20 +124,42 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         
         
         
-        let ref = Wilddog(url: "https://loveq.wilddogio.com/review")
-        
-        ref?.observe(.value, with: { snapshot in
-            print(snapshot?.value)
-            let statuDict = snapshot?.value as! NSDictionary
-            
-            if statuDict["statu110"] as! NSString == "1" {
-                self.reviewStatu = true
-                UserDefaults.standard.set(true, forKey: "reviewStatu")
-            }else{
-                self.reviewStatu = false
-                UserDefaults.standard.set(false, forKey: "reviewStatu")
+//        let ref = Wilddog(url: "https://loveq.wilddogio.com/review")
+//        
+//        ref?.observe(.value, with: { snapshot in
+//            print(snapshot?.value)
+//            let statuDict = snapshot?.value as! NSDictionary
+//            
+//            if statuDict["statu110"] as! NSString == "1" {
+//                self.reviewStatu = true
+//                UserDefaults.standard.set(true, forKey: "reviewStatu")
+//            }else{
+//                self.reviewStatu = false
+//                UserDefaults.standard.set(false, forKey: "reviewStatu")
+//            }
+//            })
+
+        //LeanCloud获取当前版本审核信息
+        let keyQuery = LCQuery(className: "Review")
+        keyQuery.whereKey("version", .prefixedBy("1.2.0"))
+        keyQuery.getFirst { result in
+            switch result {
+            case .success(let list):
+                let statu = list.get("statu") as! LCBool
+                if  statu.value {
+                    self.reviewStatu = true
+                    UserDefaults.standard.set(true, forKey: "reviewStatu")
+                }else{
+                    self.reviewStatu = false
+                    UserDefaults.standard.set(false, forKey: "reviewStatu")
+                }
+
+
+            break // 查询成功
+            case .failure(let error):
+                print(error)
             }
-            })
+        }
         
         playIndex = 0
         musicSlider.setValue(0.0, animated: true)
@@ -140,7 +167,7 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         if musiclistFilesArray.count == 0 {
             playerState = 0
         }else{
-            playerState = 1
+            playerState = 0
             prepareAudio()
         }
         newlivePlayView = setupLivePlayView()
@@ -148,6 +175,11 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         newmusicPlayView = setupMusicPlayView()
         view.addSubview(newmusicPlayView)
         animationForView(newlivePlayView, statu: false)
+
+
+        //设置NowPlayingCenter
+        let artWork = MPMediaItemArtwork.init(image: UIImage.init(named: "logo-120")!)
+        nowPlayingCenter.nowPlayingInfo = [MPMediaItemPropertyTitle:"Hugo&阿智",MPMediaItemPropertyArtwork:artWork]
 
         
         
@@ -183,7 +215,6 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         button.snp.makeConstraints { (make) in
             make.centerX.equalTo(backgroundView.snp.centerX)
             make.top.equalTo(radiolabel.snp.bottom).offset(8)
-//            make.bottom.equalTo(backgroundView.snp.bottom)
         }
         return backgroundView
     }
@@ -272,8 +303,6 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         setupMusiclist()
         if musiclistFilesArray.count == 0 {
             playerState = 0
-        }else{
-            playerState = 1
         }
     }
     
@@ -381,6 +410,7 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         }
         let time = musicPlayer.currentTime / musicPlayer.duration
         musicSlider.setValue(Float(time), animated: true)
+        nowPlayingCenter.nowPlayingInfo = [MPNowPlayingInfoPropertyElapsedPlaybackTime:Int(musicPlayer.currentTime)]
         updateProgressLabelValue()
         if time > 0.9998 {
             playNext()
@@ -399,6 +429,9 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         if playerState == 1 && fileURL != nil {
             musicTimer.fireDate = NSDate.distantFuture
             beginTimeLabel.text = Tools.calculateTime(musicPlayer.duration * Double(musicSlider.value))
+
+            drawerContoller?.openDrawerGestureModeMask = OpenDrawerGestureMode.panningNavigationBar
+            drawerContoller?.closeDrawerGestureModeMask = CloseDrawerGestureMode.panningNavigationBar
         }
     }
 
@@ -418,7 +451,7 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         }else{
             if let statu = reviewStatu {
                 if !statu {
-                    HUD.flash(.labeledError(title: "", subtitle: "前往全部节目下载节目"), delay: 1.5)
+                    HUD.flash(.labeledError(title: "", subtitle: "向左滑查看已下载的节目\n或右滑选择节目下载"), delay: 1.5)
                 }
             }
             
@@ -431,13 +464,14 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     func playAudio(){
 
         let memoryTime  = UserDefaults.standard.double(forKey: self.programTitle.text!)
-        
         if  memoryTime > 0.0 {
             musicPlayer.currentTime = memoryTime
         }
+        playerState = 1
         musicPlayer.play()
         playButton.isSelected = true
         startTimer()
+        nowPlayingCenter.nowPlayingInfo = [MPMediaItemPropertyTitle:programTitle.text,MPMediaItemPropertyPlaybackDuration:Int(musicPlayer.duration),MPNowPlayingInfoPropertyPlaybackRate:(1)]
     }
     
     func pauseAudio() {
@@ -495,6 +529,8 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         if playerState == 1 && fileURL != nil {
             musicTimer.fireDate = NSDate.init() as Date
             musicPlayer.currentTime = musicPlayer.duration * Double(musicSlider.value)
+            drawerContoller?.openDrawerGestureModeMask = OpenDrawerGestureMode.all
+            drawerContoller?.closeDrawerGestureModeMask = CloseDrawerGestureMode.all
         }
     }
 
@@ -554,6 +590,16 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
     }
     func livePlayAtion(_ sender: UIButton) {
         livePlayer = AVPlayer(url: URL(string: "http://ctt.rgd.com.cn:8000/fm974")!)
+        do {
+            //keep alive audio at background
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+
+        } catch _ {
+        }
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch _ {
+        }
         if sender.isSelected {
             sender.isSelected = false
             livePlayer!.pause()

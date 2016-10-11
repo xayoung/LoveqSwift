@@ -69,11 +69,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Wilddog.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,7 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>30C28D9C732ED10B89A027C29A5FC3B4</key>
+		<key>26930AE51342BDDEE24B1A170EB6EFDD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,12 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>42D68FD59DCB1236F1D44932CD9C5F4F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>772D06DF30B4BCDB10DD1DA0FC614088</key>
+		<key>6FD03E90C30431A277D8649A1794F58D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9E23D8ABAA674502512BDDCF0F887DAE</key>
+		<key>AAA2A39F41A795A99782DB6760322320</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,12 +137,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D8AAA060E443E8548075ED3B249022A5</key>
+		<key>F6F0516F82D07656D12F1C0716898F73</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F6F0516F82D07656D12F1C0716898F73</key>
+		<key>FD04727B0D74EA341FF6880BCDD05FC3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

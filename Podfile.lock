@@ -7,6 +7,7 @@ PODS:
   - DrawerController/DrawerVisualStates (3.0.0):
     - DrawerController/Core
   - FXBlurView (1.6.4)
+  - JPush (2.1.9)
   - LeanCloud (1.3.0):
     - LeanCloud/Storage (= 1.3.0)
   - LeanCloud/Storage (1.3.0):
@@ -20,11 +21,11 @@ PODS:
   - QQ_XGPush (2.4.9)
   - Ruler (1.0.0)
   - SnapKit (3.0.2)
-  - Wilddog (1.0.0)
 
 DEPENDENCIES:
   - DrawerController
   - FXBlurView
+  - JPush
   - LeanCloud (= 1.3.0)
   - MonkeyKing
   - MZDownloadManager (from `https://raw.githubusercontent.com/mzeeshanid/MZDownloadManager/master/MZDownloadManager.podspec`)
@@ -35,7 +36,6 @@ DEPENDENCIES:
   - QQ_XGPush
   - Ruler
   - SnapKit
-  - Wilddog (= 1.0.0)
 
 EXTERNAL SOURCES:
   MZDownloadManager:
@@ -52,6 +52,7 @@ SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   DrawerController: 5e859c5dbeae3cea20981eb5ff2aa16eb946dff9
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  JPush: 8bccf709ace4318a8e7008cc4fab42b706bfad46
   LeanCloud: 4b3d788f5be7e356331326bc4f8752e28d076e48
   MonkeyKing: 8d1f0550cc535d5a6f97f4ebcec068d95c9ba00f
   MZDownloadManager: ede859ed56f94e59b927e8b20b4a5bb8134ffcd5
@@ -62,8 +63,7 @@ SPEC CHECKSUMS:
   QQ_XGPush: 528cc9e762364adfa8c465cafe351d987c8af060
   Ruler: fa0067d052372fef191acea419917d4b42ebc3aa
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
-  Wilddog: 08618a6d5e9d774de7c4424119227b9392de2002
 
-PODFILE CHECKSUM: 0d4e65387bd2df4cc947816633fc6d53fedfd2e5
+PODFILE CHECKSUM: 432d32ec3fd5829bd9e756e0371863f05be2e433
 
 COCOAPODS: 1.1.0.rc.2

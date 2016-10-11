@@ -11,7 +11,6 @@ import DrawerController
 import MediaPlayer
 import MZDownloadManager
 import PKHUD
-import Wilddog
 import LeanCloud
 
 @UIApplicationMain

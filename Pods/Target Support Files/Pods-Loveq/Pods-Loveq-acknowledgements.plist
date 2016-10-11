@@ -102,6 +102,16 @@ freely, subject to the following restrictions:
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright jpush.cn</string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>JPush</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -545,16 +555,6 @@ THE SOFTWARE.
 			<string>MIT</string>
 			<key>Title</key>
 			<string>SnapKit</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
-			<string>https://www.wilddog.com/terms/sa</string>
-			<key>License</key>
-			<string>MIT</string>
-			<key>Title</key>
-			<string>Wilddog</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
