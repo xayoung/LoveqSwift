@@ -1,1 +1,0 @@
-../../../QQ_XGPush/XGPush/XGSetting.h
