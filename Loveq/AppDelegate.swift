@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //注册LeanCloud
         LeanCloud.initialize(applicationID: "xSKEPbolbbf8kzTyPwh0k8IN-gzGzoHsz", applicationKey: "yfsU1LM3UsB2UPQPURS9zvew")
@@ -84,16 +83,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // 远程推送注册失败
     
     func application(_ application: UIApplication , didFailToRegisterForRemoteNotificationsWithError error: Error ) {
-        
-//        if error.code == 3010 {
-//            
-//            print ( "Push notifications are not supported in the iOS Simulator." )
-//            
-//        } else {
-//            
-//            print ( "application:didFailToRegisterForRemoteNotificationsWithError: \(error) " )
-//            
-//        }
 
     }
     //app在前台运行时收到远程通知

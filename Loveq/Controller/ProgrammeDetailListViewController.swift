@@ -94,13 +94,6 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         regClass(self.tableView, cell: ProgrammeDetailViewCell.self)
         view.addSubview(tableView)
         setUpDownloadingViewController()
-//        let yearNum = Int(self.year!)
-//        if yearNum > 2015 {
-//            loadNewData()
-//        }else{
-//            loadOldData()
-//        }
-
         loadLeanCloudData()
         loadFileAppendArray()
         setupDownloadButtonView()
@@ -241,64 +234,7 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         }
 
     }
-    /*
-    func loadNewData() {
-        
-        let activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: NVActivityIndicatorType.ballBeat, color: UIColor.red)
-        activityIndicatorView.center = CGPoint(x: LoveqConfig.screenW * 0.5, y: LoveqConfig.screenH * 0.5 - 64)
-        self.view.addSubview(activityIndicatorView)
-        activityIndicatorView.startAnimating()
-        
-        let ref = Wilddog(url: LoveqConfig.WilddogURL + year! )
 
-
-        ref?.observe(.value, with: { snapshot in
-
-            let dict = snapshot?.value as! NSDictionary
-            self.dataSource = dict as! [String : NSArray]
-            
-            var array = dict.allKeys
-            
-            array.sort{($0 as! String) > ($1 as! String)}
-            
-            for str in array{
-                let mapArray = dict.object(forKey: str) as! NSArray
-                var outArray: [ProgrammerListModel] = [ProgrammerListModel]()
-                for dic in 0 ..< mapArray.count {
-                    let model = Mapper<ProgrammerListModel>().map(JSON: mapArray[dic] as! [String : Any])
-                    outArray.append(model!)
-                }
-                self.dataArray.append(outArray)
-            }
-            self.sectionArray = array as NSArray
-            activityIndicatorView.stopAnimating()
-            sleep(1)
-            self.animateTable()
-            })
-        
-    }
-    
-    func loadOldData() {
-
-        let dict = LoveqClient.sharedInstance.oldProgramListJSON.object(forKey: self.year!)
-        self.dataSource = dict as! [String : NSArray]
-        
-        var array = (dict! as AnyObject).allKeys
-        
-        array?.sort{($0 as! String) > ($1 as! String)}
-        
-        for str in array!{
-            let mapArray = (dict! as AnyObject).object(forKey: str) as! NSArray
-            var outArray: [ProgrammerListModel] = [ProgrammerListModel]()
-            for dic in 0 ..< mapArray.count {
-                let model = Mapper<ProgrammerListModel>().map(JSON: mapArray[dic] as! [String : Any])
-                outArray.append(model!)
-            }
-            self.dataArray.append(outArray)
-        }
-        self.sectionArray = array! as NSArray
-        
-    }*/
     
     func animateTable() {
         
@@ -316,55 +252,6 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
     }
     
     // MARK: - Table view data source
-    /*
-     func numberOfSections(in tableView: UITableView) -> Int {
-        return dataArray.count
-    }
-    
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        count = count + dataArray[section].count
-        return dataArray[section].count
-    }
-    
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = getCell(tableView, cell: ProgrammeDetailViewCell.self, indexPath: indexPath)
-        let model = dataArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
-        cell.contentView.backgroundColor = UIColor.clear
-        cell.model = model
-        let attrString = NSMutableAttributedString.init(string: model.title!)
-        attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, model.title!.characters.count))
-        cell.title?.attributedText = attrString
-        var index: NSInteger = 0
-        
-        for a in 0...(indexPath as NSIndexPath).section {
-            index += a == (indexPath as NSIndexPath).section ?  (indexPath as NSIndexPath).row : dataArray[(indexPath as NSIndexPath).section].count
-        }
-        cell.indexNum?.text = String(index + 1)
-        cell.indexNum?.isHidden = tableView.isEditing ? true : false
-        cell.delegate = self
-        cell.ActionImg?.isHidden = reviewStatu! ? true : false
-        cell.ActionImg?.isUserInteractionEnabled = true
-        cell.ActionImg?.setImage(UIImage.init(named: "btn_download_nor"), for: UIControlState())
-        cell.textLabel?.backgroundColor = UIColor.clear
-        cell.textLabel?.textColor = UIColor.black
-        if downloadedFilesArray.contains((model.title! as NSString).substring(to: 10)) {
-            cell.ActionImg?.setImage(UIImage.init(named: "ic_downloaded"), for: UIControlState())
-            cell.ActionImg?.isUserInteractionEnabled = false
-            cell.textLabel?.textColor = UIColor.init(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0)
-
-        }
-
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.clear
-        cell.selectedBackgroundView = bgColorView
-        
-        return cell
-    }*/
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
@@ -381,11 +268,6 @@ class ProgrammeDetailListViewController: UIViewController,UITableViewDelegate,UI
         let attrString = NSMutableAttributedString.init(string: model.title!)
         attrString.addAttribute(NSKernAttributeName, value: 4, range: NSMakeRange(0, model.title!.characters.count))
         cell.title?.attributedText = attrString
-
-//        var index: NSInteger = 0
-//        for a in 0...(indexPath as NSIndexPath).section {
-//            index += a == (indexPath as NSIndexPath).section ?  (indexPath as NSIndexPath).row : dataArray[(indexPath as NSIndexPath).section].count
-//        }
         cell.indexNum?.text = String(indexPath.row + 1)
         cell.indexNum?.isHidden = tableView.isEditing ? true : false
         cell.delegate = self

@@ -179,8 +179,6 @@ extension DownloadingViewController {
 extension DownloadingViewController: MZDownloadManagerDelegate {
 
     func downloadRequestStarted(_ downloadModel: MZDownloadModel, index: Int) {
-//        let indexPath = NSIndexPath.init(forRow: index, inSection: 0)
-//        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         tableView.reloadData()
     }
 

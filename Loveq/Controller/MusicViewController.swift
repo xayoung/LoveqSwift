@@ -5,7 +5,6 @@
 //  Created by xayoung on 16/5/17.
 //  Copyright © 2016年 xayoung. All rights reserved.
 //
-//import = 导入
 import UIKit
 import AVFoundation
 import FXBlurView
@@ -121,23 +120,6 @@ class MusicViewController: UIViewController,AVAudioPlayerDelegate,CFWaterWaveDel
         let rightButton = UIBarButtonItem.init(image: UIImage.init(named: "btn_my_nor"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MusicViewController.rightClick))
         rightButton.tintColor = UIColor.red
         navigationItem.rightBarButtonItem = rightButton
-        
-        
-        
-//        let ref = Wilddog(url: "https://loveq.wilddogio.com/review")
-//        
-//        ref?.observe(.value, with: { snapshot in
-//            print(snapshot?.value)
-//            let statuDict = snapshot?.value as! NSDictionary
-//            
-//            if statuDict["statu110"] as! NSString == "1" {
-//                self.reviewStatu = true
-//                UserDefaults.standard.set(true, forKey: "reviewStatu")
-//            }else{
-//                self.reviewStatu = false
-//                UserDefaults.standard.set(false, forKey: "reviewStatu")
-//            }
-//            })
 
         //LeanCloud获取当前版本审核信息
         let keyQuery = LCQuery(className: "Review")

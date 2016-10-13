@@ -139,7 +139,6 @@ class LeftViewController: UIViewController,UITableViewDataSource,UITableViewDele
         let profileURL = URL(string: "http://itunes.apple.com/app/id1123325463"), nickname = "LoveqSwift一些事一些情"
         let thumbnail: UIImage? = UIImage()
         let info = MonkeyKing.Info(
-            //title: String(format:NSLocalizedString("Yep! I'm %@.", comment: ""), nickname),
             title: nickname,
             description: NSLocalizedString("纯粹、简约的聆听体验.", comment: ""),
             thumbnail: thumbnail,

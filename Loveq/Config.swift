@@ -80,12 +80,6 @@ class Tools  {
 
 struct shareConfigs {
 
-    struct Weibo {
-        static let appID = "1772193724"
-        static let appKey = "453283216b8c885dad2cdb430c74f62a"
-        static let redirectURL = "http://www.limon.top"
-    }
-
     struct Wechat {
         static let appID = "wxd3887d2988ee48f5"
         static let appKey = "fdb21b6827fb33c3880f779df2ccffee"

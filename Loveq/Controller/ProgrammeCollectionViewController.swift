@@ -10,7 +10,6 @@ import UIKit
 import ObjectMapper
 import MZDownloadManager
 import LeanCloud
-//import SwiftRefresher
 import NVActivityIndicatorView
 private let reuseIdentifier = "CellID"
 
@@ -41,10 +40,6 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let refresher = Refresher { [weak self] () -> Void in
-//            self?.loadData()
-//        }
-//        collectionView.srf_addRefresher(refresher)
         self.title = "全部节目"
         view.backgroundColor = UIColor.white
         self.automaticallyAdjustsScrollViewInsets = false
@@ -75,19 +70,6 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
                 print(error)
             }
         }
-
-
-
-//        let ref = Wilddog(url: LoveqConfig.WilddogURL + "index/programIndex")
-//        ref?.observe(.value, with: { snapshot in
-//            let dict = snapshot?.value as! NSDictionary
-//            var array = dict.allKeys
-//            array.sort{($0 as! String) > ($1 as! String)}
-//            self.dataSource = array as Array<AnyObject>
-//
-//            self.activityIndicatorView!.stopAnimating()
-//            self.collectionView.reloadData()
-//            })
     }
 
 
@@ -118,20 +100,6 @@ class ProgrammeCollectionViewController: UIViewController,UICollectionViewDelega
             cell.image?.image = UIImage.init(named: "img_year_def")
             cell.programCount?.text = "共" + (countStr.value) + "期"
         }
-//        let ref = Wilddog(url: LoveqConfig.WilddogURL + "index/programIndex/" + (dataSource[indexPath.row] as! String) )
-//        ref?.observe(.value, with: { snapshot in
-//            let dict = snapshot?.value as! NSDictionary
-//            let programCount = dict["count"] as! NSString
-//            if programCount.isEqual(to: "0"){
-//                cell.image?.image = UIImage.init(named: "img_year_2016")
-//                cell.programCount?.text = "更新中"
-//
-//            }else{
-//                cell.image?.image = UIImage.init(named: "img_year_def")
-//                cell.programCount?.text = "共" + (programCount as String) + "期"
-//            }
-//
-//            })
 
         return cell
     }
