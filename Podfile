@@ -10,6 +10,7 @@ target 'Loveq' do
     pod 'MZDownloadManager’, podspec:’https://raw.githubusercontent.com/mzeeshanid/MZDownloadManager/master/MZDownloadManager.podspec'
     pod 'NVActivityIndicatorView'
     pod 'DrawerController'
+    pod 'FXBlurView'
     pod 'SnapKit’
     pod 'MonkeyKing'
     pod 'PKHUD', :git => 'https://github.com/toyship/PKHUD.git'

@@ -73,6 +73,7 @@
 		AAA3CACD1CF5E426006B11CC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		AAA70BD51CEAAB0C006E5651 /* MusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		AAB3C8A61D151ED100AA75CE /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		AACF59E31DAF5A1E00C55A47 /* Loveq.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Loveq.entitlements; sourceTree = "<group>"; };
 		AAE728701CE8168900B67E1E /* DownloadedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedViewController.swift; sourceTree = "<group>"; };
 		AAFE42C21D04628500932773 /* ProgrammeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgrammeCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +179,7 @@
 		AA977A411CC0795700B272CA /* Loveq */ = {
 			isa = PBXGroup;
 			children = (
+				AACF59E31DAF5A1E00C55A47 /* Loveq.entitlements */,
 				AA977A461CC0795800B272CA /* Main.storyboard */,
 				AA05673D1CEFFB3D00D086B3 /* MusicPlayer.storyboard */,
 				AA9805161CCE4B4E0022DE8A /* Tools */,
@@ -438,6 +440,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Loveq/Loveq.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6QYU33MRLQ;

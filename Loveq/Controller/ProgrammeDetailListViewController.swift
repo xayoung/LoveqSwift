@@ -11,7 +11,6 @@ import ObjectMapper
 import NVActivityIndicatorView
 import MZDownloadManager
 import PKHUD
-import FXBlurView
 import pop
 import LeanCloud
 

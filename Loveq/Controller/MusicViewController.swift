@@ -7,7 +7,6 @@
 //
 import UIKit
 import AVFoundation
-import FXBlurView
 import MZDownloadManager
 import PKHUD
 import pop
