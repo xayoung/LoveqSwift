@@ -3,7 +3,8 @@
 
 LoveqSwift is an lightweight iOS client for download [《一些事一些情》](http://www.loveq.cn/)'s programs.
 
-![](http://ww3.sinaimg.cn/large/5e999b55gw1f57gs1777sj20hs0vkq5i.jpg)
+<img src="http://ww3.sinaimg.cn/large/5e999b55gw1f57gs1777sj20hs0vkq5i.jpg" width="30%" height="30%">  <img src="http://ww3.sinaimg.cn/large/006tNbRwgw1f5qagwip8ij30ku112414.jpg" width="30%" height="30%">  <img src="http://ww4.sinaimg.cn/large/006tNbRwgw1f5qafv8akqj30ku112q4u.jpg" width="30%" height="30%">
+
 ## Project Introductory Guide
 
 > Please build with the latest CocoaPods v1.1.0 and Xcode 8.0.
