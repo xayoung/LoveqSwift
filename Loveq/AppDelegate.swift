@@ -12,15 +12,18 @@ import MediaPlayer
 import MZDownloadManager
 import PKHUD
 import LeanCloud
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var backgroundSessionCompletionHandler : (() -> Void)?
     
     var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         //注册LeanCloud
         LeanCloud.initialize(applicationID: "xSKEPbolbbf8kzTyPwh0k8IN-gzGzoHsz", applicationKey: "yfsU1LM3UsB2UPQPURS9zvew")
 
@@ -42,41 +45,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LoveqClient.sharedInstance.downloadingController = DownloadingViewController()
         LoveqClient.sharedInstance.loveqUIWindow = self.window
         self.window?.rootViewController = drawerController;
-
-        XGPush.startApp(2200205039,appKey:"I3327UDVYP4J");
         
-        XGPush.initForReregister { () -> Void in
-            
-            if(!XGPush.isUnRegisterStatus()){
-                
-                print("注册通知");
-                
-                if (UIApplication.instancesRespond(to: #selector(UIApplication.registerUserNotificationSettings(_:)))){
-                    
-                    application.registerUserNotificationSettings(
-                        UIUserNotificationSettings(
-                            types: [.alert, .badge, .sound],
-                            categories: nil))
-                    
-                    application.registerForRemoteNotifications();
-                    
-                } else {
-                    application.registerForRemoteNotifications();
-                }
+        XGPush.startApp(2200205039,appKey:"I3327UDVYP4J")
+        XGPush.isPush { (isPushOn) in
+            print(isPushOn ? "on" : "off")
+        }
+        registerPush()
+        if let options = launchOptions {
+            XGPush.handleLaunching(options as! [AnyHashable : Any], successCallback: {
+                print("success")
+            }) {
+                print("error")
             }
         }
-        //推送反馈(app不在前台运行时，点击推送激活时)
-        XGPush.handleLaunching(launchOptions)
+        
         return true
+    }
+    
+    
+    func registerPush () {
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.badge, .alert, .sound], completionHandler: { (granted, Error) in
+                UIApplication.shared.registerForRemoteNotifications()
+            })
+        } else {
+            // Fallback on earlier versions
+            let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+
+        }
+        
     }
     
     // 远程推送注册成功，获取deviceToken
     
     func application(_ application: UIApplication , didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data ) {
         
-        let  deviceTokenStr : String = XGPush.registerDevice(deviceToken);
+        let deviceTokenStr = XGPush.registerDevice(deviceToken, account: "xayoung001", successCallback: {
+            
+            print("注册成功")
+        }) { 
+            print("注册失败")
+        }
         
-        print(deviceTokenStr)
+        print(deviceTokenStr!)
         
     }
     
